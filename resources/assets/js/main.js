@@ -21086,9 +21086,9 @@ goog.provide("puzzle.templates");
 goog.require("cljs.core");
 puzzle.templates.blank = function() {
   var blank__delegate = function(opts) {
-    var dom15353 = document.createElement("div");
-    dom15353.className = "square";
-    return dom15353
+    var dom52520 = document.createElement("div");
+    dom52520.className = "square";
+    return dom52520
   };
   var blank = function(var_args) {
     var opts = null;
@@ -21098,18 +21098,39 @@ puzzle.templates.blank = function() {
     return blank__delegate.call(this, opts)
   };
   blank.cljs$lang$maxFixedArity = 0;
-  blank.cljs$lang$applyTo = function(arglist__15354) {
-    var opts = cljs.core.seq(arglist__15354);
+  blank.cljs$lang$applyTo = function(arglist__52521) {
+    var opts = cljs.core.seq(arglist__52521);
     return blank__delegate(opts)
   };
   blank.cljs$lang$arity$variadic = blank__delegate;
   return blank
 }();
+puzzle.templates.man = function() {
+  var man__delegate = function(opts) {
+    var dom52523 = document.createElement("i");
+    dom52523.className = "fa fa-male";
+    return dom52523
+  };
+  var man = function(var_args) {
+    var opts = null;
+    if(goog.isDef(var_args)) {
+      opts = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0)
+    }
+    return man__delegate.call(this, opts)
+  };
+  man.cljs$lang$maxFixedArity = 0;
+  man.cljs$lang$applyTo = function(arglist__52524) {
+    var opts = cljs.core.seq(arglist__52524);
+    return man__delegate(opts)
+  };
+  man.cljs$lang$arity$variadic = man__delegate;
+  return man
+}();
 puzzle.templates.room_key = function() {
   var room_key__delegate = function(opts) {
-    var dom15356 = document.createElement("i");
-    dom15356.className = "fa fa-key";
-    return dom15356
+    var dom52526 = document.createElement("i");
+    dom52526.className = "fa fa-key";
+    return dom52526
   };
   var room_key = function(var_args) {
     var opts = null;
@@ -21119,64 +21140,64 @@ puzzle.templates.room_key = function() {
     return room_key__delegate.call(this, opts)
   };
   room_key.cljs$lang$maxFixedArity = 0;
-  room_key.cljs$lang$applyTo = function(arglist__15357) {
-    var opts = cljs.core.seq(arglist__15357);
+  room_key.cljs$lang$applyTo = function(arglist__52527) {
+    var opts = cljs.core.seq(arglist__52527);
     return room_key__delegate(opts)
   };
   room_key.cljs$lang$arity$variadic = room_key__delegate;
   return room_key
 }();
-puzzle.templates.render = function render(s) {
-  var pred__15361 = cljs.core._EQ_;
-  var expr__15362 = (new cljs.core.Keyword("\ufdd0'type")).call(null, s);
-  if(pred__15361.call(null, "\ufdd0'square", expr__15362)) {
-    return puzzle.templates.blank.call(null)
+puzzle.templates.render = function render(opts) {
+  var pred__52531 = cljs.core._EQ_;
+  var expr__52532 = (new cljs.core.Keyword("\ufdd0'type")).call(null, opts);
+  if(pred__52531.call(null, "\ufdd0'man", expr__52532)) {
+    return puzzle.templates.man.call(null)
   }else {
-    if(pred__15361.call(null, "\ufdd0'room-key", expr__15362)) {
+    if(pred__52531.call(null, "\ufdd0'room-key", expr__52532)) {
       return puzzle.templates.room_key.call(null)
     }else {
       return puzzle.templates.blank.call(null)
     }
   }
 };
-puzzle.templates.gameboard = function gameboard(p__15364) {
-  var vec__15374 = p__15364;
-  var h = cljs.core.nth.call(null, vec__15374, 0, null);
-  var w = cljs.core.nth.call(null, vec__15374, 1, null);
-  var dom15375 = document.createElement("div");
-  dom15375.className = "noselect";
-  dom15375.setAttribute("id", "gameboard");
-  dom15375.appendChild(function() {
-    var dom15376 = document.createElement("table");
+puzzle.templates.gameboard = function gameboard(p__52534) {
+  var vec__52544 = p__52534;
+  var h = cljs.core.nth.call(null, vec__52544, 0, null);
+  var w = cljs.core.nth.call(null, vec__52544, 1, null);
+  var dom52545 = document.createElement("div");
+  dom52545.className = "noselect";
+  dom52545.setAttribute("id", "gameboard");
+  dom52545.appendChild(function() {
+    var dom52546 = document.createElement("table");
     if("1px") {
-      dom15376.setAttribute("border", "1px")
+      dom52546.setAttribute("border", "1px")
     }else {
     }
     if(true) {
-      dom15376.setAttribute("border-collapse", true)
+      dom52546.setAttribute("border-collapse", true)
     }else {
     }
-    dom15376.appendChild(dommy.template.__GT_node_like.call(null, function() {
-      var iter__2611__auto__ = function iter__15377(s__15378) {
+    dom52546.appendChild(dommy.template.__GT_node_like.call(null, function() {
+      var iter__2611__auto__ = function iter__52547(s__52548) {
         return new cljs.core.LazySeq(null, false, function() {
-          var s__15378__$1 = s__15378;
+          var s__52548__$1 = s__52548;
           while(true) {
-            var temp__4092__auto__ = cljs.core.seq.call(null, s__15378__$1);
+            var temp__4092__auto__ = cljs.core.seq.call(null, s__52548__$1);
             if(temp__4092__auto__) {
               var xs__4579__auto__ = temp__4092__auto__;
               var i = cljs.core.first.call(null, xs__4579__auto__);
               return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tr", cljs.core.ObjMap.fromObject(["\ufdd0'class"], {"\ufdd0'class":[cljs.core.str(i)].join("")}), function() {
                 var iter__2611__auto__ = function(i, xs__4579__auto__, temp__4092__auto__) {
-                  return function iter__15381(s__15382) {
+                  return function iter__52551(s__52552) {
                     return new cljs.core.LazySeq(null, false, function(i, xs__4579__auto__, temp__4092__auto__) {
                       return function() {
-                        var s__15382__$1 = s__15382;
+                        var s__52552__$1 = s__52552;
                         while(true) {
-                          var temp__4092__auto____$1 = cljs.core.seq.call(null, s__15382__$1);
+                          var temp__4092__auto____$1 = cljs.core.seq.call(null, s__52552__$1);
                           if(temp__4092__auto____$1) {
                             var xs__4579__auto____$1 = temp__4092__auto____$1;
                             var j = cljs.core.first.call(null, xs__4579__auto____$1);
-                            return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'td", cljs.core.ObjMap.fromObject(["\ufdd0'class", "\ufdd0'data-coords"], {"\ufdd0'class":[cljs.core.str(j)].join(""), "\ufdd0'data-coords":cljs.core.format.call(null, "[%s,%s]", j, i)}), puzzle.templates.blank.call(null)], true), iter__15381.call(null, cljs.core.rest.call(null, s__15382__$1)))
+                            return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'td", cljs.core.ObjMap.fromObject(["\ufdd0'class", "\ufdd0'data-coords"], {"\ufdd0'class":[cljs.core.str(j)].join(""), "\ufdd0'data-coords":[cljs.core.str("["), cljs.core.str(j), cljs.core.str(","), cljs.core.str(i), cljs.core.str("]")].join("")}), puzzle.templates.blank.call(null)], true), iter__52551.call(null, cljs.core.rest.call(null, s__52552__$1)))
                           }else {
                             return null
                           }
@@ -21187,7 +21208,7 @@ puzzle.templates.gameboard = function gameboard(p__15364) {
                   }
                 }(i, xs__4579__auto__, temp__4092__auto__);
                 return iter__2611__auto__.call(null, cljs.core.range.call(null, w))
-              }()], true), iter__15377.call(null, cljs.core.rest.call(null, s__15378__$1)))
+              }()], true), iter__52547.call(null, cljs.core.rest.call(null, s__52548__$1)))
             }else {
               return null
             }
@@ -21197,15 +21218,15 @@ puzzle.templates.gameboard = function gameboard(p__15364) {
       };
       return iter__2611__auto__.call(null, cljs.core.range.call(null, h))
     }()));
-    return dom15376
+    return dom52546
   }());
-  return dom15375
+  return dom52545
 };
 puzzle.templates.layout = function layout(content) {
-  var dom15384 = document.createElement("div");
-  dom15384.setAttribute("id", "inner-content");
-  dom15384.appendChild(dommy.template.__GT_node_like.call(null, content));
-  return dom15384
+  var dom52554 = document.createElement("div");
+  dom52554.setAttribute("id", "inner-content");
+  dom52554.appendChild(dommy.template.__GT_node_like.call(null, content));
+  return dom52554
 };
 goog.provide("clojure.string");
 goog.require("cljs.core");
@@ -22526,6 +22547,89 @@ yolk.bacon.log_with = function log_with(prefix) {
 };
 yolk.bacon.log_action = function log_action(sexp) {
   return yolk.bacon.log_with.call(null, [cljs.core.str(sexp), cljs.core.str(" =>")].join(""))
+};
+goog.provide("puzzle.handlers");
+goog.require("cljs.core");
+goog.require("yolk.bacon");
+puzzle.handlers.place = function place(board, p__52058) {
+  var map__52061 = p__52058;
+  var map__52061__$1 = cljs.core.seq_QMARK_.call(null, map__52061) ? cljs.core.apply.call(null, cljs.core.hash_map, map__52061) : map__52061;
+  var entity = cljs.core._lookup.call(null, map__52061__$1, "\ufdd0'entity", null);
+  var coords = cljs.core._lookup.call(null, map__52061__$1, "\ufdd0'coords", null);
+  var map__52062 = cljs.core._lookup.call(null, board, coords, null);
+  var map__52062__$1 = cljs.core.seq_QMARK_.call(null, map__52062) ? cljs.core.apply.call(null, cljs.core.hash_map, map__52062) : map__52062;
+  var cell = map__52062__$1;
+  var bus = cljs.core._lookup.call(null, map__52062__$1, "\ufdd0'bus", null);
+  var occupants = cljs.core._lookup.call(null, map__52062__$1, "\ufdd0'occupants", null);
+  var occupants__$1 = cljs.core.conj.call(null, occupants, entity);
+  yolk.bacon.push.call(null, bus, occupants__$1);
+  return cljs.core.assoc.call(null, board, coords, cljs.core.assoc.call(null, cell, "\ufdd0'occupants", occupants__$1))
+};
+puzzle.handlers.move_STAR_ = function move_STAR_(p__52064, dir) {
+  var vec__52069 = p__52064;
+  var x = cljs.core.nth.call(null, vec__52069, 0, null);
+  var y = cljs.core.nth.call(null, vec__52069, 1, null);
+  var dist = 1;
+  var pred__52070 = cljs.core._EQ_;
+  var expr__52071 = dir;
+  if(pred__52070.call(null, "\ufdd0'north", expr__52071)) {
+    return cljs.core.PersistentVector.fromArray([x, y - dist], true)
+  }else {
+    if(pred__52070.call(null, "\ufdd0'south", expr__52071)) {
+      return cljs.core.PersistentVector.fromArray([x, y + dist], true)
+    }else {
+      if(pred__52070.call(null, "\ufdd0'west", expr__52071)) {
+        return cljs.core.PersistentVector.fromArray([x - dist, y], true)
+      }else {
+        if(pred__52070.call(null, "\ufdd0'east", expr__52071)) {
+          return cljs.core.PersistentVector.fromArray([x + dist, y], true)
+        }else {
+          throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__52071)].join(""));
+        }
+      }
+    }
+  }
+};
+puzzle.handlers.remove_entity = function remove_entity(cell, ent) {
+  var occs = (new cljs.core.Keyword("\ufdd0'occupants")).call(null, cell);
+  var entity = cljs.core.first.call(null, cljs.core.filter.call(null, function(p1__52063_SHARP_) {
+    return cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0'id")).call(null, ent), (new cljs.core.Keyword("\ufdd0'id")).call(null, p1__52063_SHARP_))
+  }, occs));
+  return cljs.core.PersistentVector.fromArray([cljs.core.assoc.call(null, cell, "\ufdd0'occupants", cljs.core.remove.call(null, cljs.core.PersistentHashSet.fromArray([entity]), (new cljs.core.Keyword("\ufdd0'occupants")).call(null, cell))), entity], true)
+};
+puzzle.handlers.add_entity = function add_entity(cell, entity) {
+  return cljs.core.assoc.call(null, cell, "\ufdd0'occupants", cljs.core.conj.call(null, (new cljs.core.Keyword("\ufdd0'occupants")).call(null, cell), entity))
+};
+puzzle.handlers.move = function move(board, p__52073) {
+  var map__52077 = p__52073;
+  var map__52077__$1 = cljs.core.seq_QMARK_.call(null, map__52077) ? cljs.core.apply.call(null, cljs.core.hash_map, map__52077) : map__52077;
+  var entity = cljs.core._lookup.call(null, map__52077__$1, "\ufdd0'entity", null);
+  var direction = cljs.core._lookup.call(null, map__52077__$1, "\ufdd0'direction", null);
+  var coords = cljs.core._lookup.call(null, map__52077__$1, "\ufdd0'coords", null);
+  var vec__52078 = cljs.core.PersistentVector.fromArray([coords, puzzle.handlers.move_STAR_.call(null, coords, direction)], true);
+  var f = cljs.core.nth.call(null, vec__52078, 0, null);
+  var t = cljs.core.nth.call(null, vec__52078, 1, null);
+  var vec__52079 = puzzle.handlers.remove_entity.call(null, cljs.core._lookup.call(null, board, f, null), entity);
+  var from = cljs.core.nth.call(null, vec__52079, 0, null);
+  var ent = cljs.core.nth.call(null, vec__52079, 1, null);
+  var to = puzzle.handlers.add_entity.call(null, cljs.core._lookup.call(null, board, t, null), ent);
+  var updated = cljs.core.assoc.call(null, board, f, from, t, to);
+  yolk.bacon.push.call(null, (new cljs.core.Keyword("\ufdd0'bus")).call(null, from), (new cljs.core.Keyword("\ufdd0'occupants")).call(null, from));
+  yolk.bacon.push.call(null, (new cljs.core.Keyword("\ufdd0'bus")).call(null, to), (new cljs.core.Keyword("\ufdd0'occupants")).call(null, to));
+  return updated
+};
+puzzle.handlers.handle = function handle(board, opts) {
+  var pred__52083 = cljs.core._EQ_;
+  var expr__52084 = (new cljs.core.Keyword("\ufdd0'action")).call(null, opts);
+  if(pred__52083.call(null, "\ufdd0'placement", expr__52084)) {
+    return puzzle.handlers.place.call(null, board, opts)
+  }else {
+    if(pred__52083.call(null, "\ufdd0'movement", expr__52084)) {
+      return puzzle.handlers.move.call(null, board, opts)
+    }else {
+      return board
+    }
+  }
 };
 goog.provide("cljs.reader");
 goog.require("cljs.core");
@@ -24858,337 +24962,6 @@ jayq.core.deferred_m = cljs.core.ObjMap.fromObject(["\ufdd0'return", "\ufdd0'bin
 jayq.core.ajax_m = cljs.core.ObjMap.fromObject(["\ufdd0'return", "\ufdd0'bind", "\ufdd0'zero"], {"\ufdd0'return":cljs.core.identity, "\ufdd0'bind":function ajax_m(x, f) {
   return jayq.core.done.call(null, jayq.core.ajax.call(null, x), f)
 }, "\ufdd0'zero":cljs.core.identity});
-goog.provide("yolk.ui");
-goog.require("cljs.core");
-goog.require("jayq.core");
-goog.require("jayq.core");
-goog.require("yolk.bacon");
-yolk.ui.__GT_stream = function() {
-  var __GT_stream__delegate = function($elem, event, p__8463) {
-    var vec__8465 = p__8463;
-    var selector = cljs.core.nth.call(null, vec__8465, 0, null);
-    var event_transformer = cljs.core.nth.call(null, vec__8465, 1, null);
-    return $elem.asEventStream(event, selector, event_transformer)
-  };
-  var __GT_stream = function($elem, event, var_args) {
-    var p__8463 = null;
-    if(goog.isDef(var_args)) {
-      p__8463 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 2), 0)
-    }
-    return __GT_stream__delegate.call(this, $elem, event, p__8463)
-  };
-  __GT_stream.cljs$lang$maxFixedArity = 2;
-  __GT_stream.cljs$lang$applyTo = function(arglist__8466) {
-    var $elem = cljs.core.first(arglist__8466);
-    var event = cljs.core.first(cljs.core.next(arglist__8466));
-    var p__8463 = cljs.core.rest(cljs.core.next(arglist__8466));
-    return __GT_stream__delegate($elem, event, p__8463)
-  };
-  __GT_stream.cljs$lang$arity$variadic = __GT_stream__delegate;
-  return __GT_stream
-}();
-yolk.ui.mousemove = function mousemove($elem) {
-  return $elem.asEventStream("mousemove")
-};
-yolk.ui.click = function() {
-  var click__delegate = function($elem, p__8467) {
-    var vec__8469 = p__8467;
-    var selector = cljs.core.nth.call(null, vec__8469, 0, null);
-    var event_transformer = cljs.core.nth.call(null, vec__8469, 1, null);
-    return yolk.ui.__GT_stream.call(null, $elem, "click", selector, event_transformer).doAction(".preventDefault")
-  };
-  var click = function($elem, var_args) {
-    var p__8467 = null;
-    if(goog.isDef(var_args)) {
-      p__8467 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return click__delegate.call(this, $elem, p__8467)
-  };
-  click.cljs$lang$maxFixedArity = 1;
-  click.cljs$lang$applyTo = function(arglist__8470) {
-    var $elem = cljs.core.first(arglist__8470);
-    var p__8467 = cljs.core.rest(arglist__8470);
-    return click__delegate($elem, p__8467)
-  };
-  click.cljs$lang$arity$variadic = click__delegate;
-  return click
-}();
-yolk.ui.change = function() {
-  var change__delegate = function($elem, p__8471) {
-    var vec__8473 = p__8471;
-    var selector = cljs.core.nth.call(null, vec__8473, 0, null);
-    var event_transformer = cljs.core.nth.call(null, vec__8473, 1, null);
-    return yolk.ui.__GT_stream.call(null, $elem, "change", selector, event_transformer)
-  };
-  var change = function($elem, var_args) {
-    var p__8471 = null;
-    if(goog.isDef(var_args)) {
-      p__8471 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return change__delegate.call(this, $elem, p__8471)
-  };
-  change.cljs$lang$maxFixedArity = 1;
-  change.cljs$lang$applyTo = function(arglist__8474) {
-    var $elem = cljs.core.first(arglist__8474);
-    var p__8471 = cljs.core.rest(arglist__8474);
-    return change__delegate($elem, p__8471)
-  };
-  change.cljs$lang$arity$variadic = change__delegate;
-  return change
-}();
-yolk.ui.inner = function inner($elem, property) {
-  return yolk.bacon.on_value.call(null, property, cljs.core.partial.call(null, jayq.core.inner, $elem))
-};
-yolk.ui.textfield_value = function() {
-  var textfield_value__delegate = function($elem, p__8475) {
-    var vec__8477 = p__8475;
-    var init = cljs.core.nth.call(null, vec__8477, 0, null);
-    return Bacon.UI.textFieldValue($elem, init)
-  };
-  var textfield_value = function($elem, var_args) {
-    var p__8475 = null;
-    if(goog.isDef(var_args)) {
-      p__8475 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return textfield_value__delegate.call(this, $elem, p__8475)
-  };
-  textfield_value.cljs$lang$maxFixedArity = 1;
-  textfield_value.cljs$lang$applyTo = function(arglist__8478) {
-    var $elem = cljs.core.first(arglist__8478);
-    var p__8475 = cljs.core.rest(arglist__8478);
-    return textfield_value__delegate($elem, p__8475)
-  };
-  textfield_value.cljs$lang$arity$variadic = textfield_value__delegate;
-  return textfield_value
-}();
-yolk.ui.option_value = function() {
-  var option_value__delegate = function($elem, p__8479) {
-    var vec__8481 = p__8479;
-    var init = cljs.core.nth.call(null, vec__8481, 0, null);
-    return Bacon.UI.optionValue($elem, init)
-  };
-  var option_value = function($elem, var_args) {
-    var p__8479 = null;
-    if(goog.isDef(var_args)) {
-      p__8479 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return option_value__delegate.call(this, $elem, p__8479)
-  };
-  option_value.cljs$lang$maxFixedArity = 1;
-  option_value.cljs$lang$applyTo = function(arglist__8482) {
-    var $elem = cljs.core.first(arglist__8482);
-    var p__8479 = cljs.core.rest(arglist__8482);
-    return option_value__delegate($elem, p__8479)
-  };
-  option_value.cljs$lang$arity$variadic = option_value__delegate;
-  return option_value
-}();
-yolk.ui.checkbox_group_value = function() {
-  var checkbox_group_value__delegate = function($checkboxes, p__8483) {
-    var vec__8485 = p__8483;
-    var init = cljs.core.nth.call(null, vec__8485, 0, null);
-    return Bacon.UI.checkBoxGroupValue($checkboxes, init)
-  };
-  var checkbox_group_value = function($checkboxes, var_args) {
-    var p__8483 = null;
-    if(goog.isDef(var_args)) {
-      p__8483 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return checkbox_group_value__delegate.call(this, $checkboxes, p__8483)
-  };
-  checkbox_group_value.cljs$lang$maxFixedArity = 1;
-  checkbox_group_value.cljs$lang$applyTo = function(arglist__8486) {
-    var $checkboxes = cljs.core.first(arglist__8486);
-    var p__8483 = cljs.core.rest(arglist__8486);
-    return checkbox_group_value__delegate($checkboxes, p__8483)
-  };
-  checkbox_group_value.cljs$lang$arity$variadic = checkbox_group_value__delegate;
-  return checkbox_group_value
-}();
-yolk.ui.radio_group_value = function() {
-  var radio_group_value__delegate = function($elem, p__8488) {
-    var vec__8490 = p__8488;
-    var init = cljs.core.nth.call(null, vec__8490, 0, null);
-    return Bacon.UI.radioGroupValue($elem, init)
-  };
-  var radio_group_value = function($elem, var_args) {
-    var p__8488 = null;
-    if(goog.isDef(var_args)) {
-      p__8488 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return radio_group_value__delegate.call(this, $elem, p__8488)
-  };
-  radio_group_value.cljs$lang$maxFixedArity = 1;
-  radio_group_value.cljs$lang$applyTo = function(arglist__8491) {
-    var $elem = cljs.core.first(arglist__8491);
-    var p__8488 = cljs.core.rest(arglist__8491);
-    return radio_group_value__delegate($elem, p__8488)
-  };
-  radio_group_value.cljs$lang$arity$variadic = radio_group_value__delegate;
-  return radio_group_value
-}();
-yolk.ui.checkbox_value = function() {
-  var checkbox_value__delegate = function($elem, p__8492) {
-    var vec__8494 = p__8492;
-    var selector = cljs.core.nth.call(null, vec__8494, 0, null);
-    return yolk.bacon.skip_duplicates.call(null, yolk.bacon.to_property.call(null, yolk.bacon.map.call(null, yolk.ui.__GT_stream.call(null, $elem, "change", selector), function(p1__8487_SHARP_) {
-      return jayq.core.$.call(null, p1__8487_SHARP_.target).prop("checked")
-    })))
-  };
-  var checkbox_value = function($elem, var_args) {
-    var p__8492 = null;
-    if(goog.isDef(var_args)) {
-      p__8492 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return checkbox_value__delegate.call(this, $elem, p__8492)
-  };
-  checkbox_value.cljs$lang$maxFixedArity = 1;
-  checkbox_value.cljs$lang$applyTo = function(arglist__8495) {
-    var $elem = cljs.core.first(arglist__8495);
-    var p__8492 = cljs.core.rest(arglist__8495);
-    return checkbox_value__delegate($elem, p__8492)
-  };
-  checkbox_value.cljs$lang$arity$variadic = checkbox_value__delegate;
-  return checkbox_value
-}();
-yolk.ui.class_if = function class_if($elem, klass, property) {
-  return yolk.bacon.on_value.call(null, property, function(x_QMARK_) {
-    return(cljs.core.truth_(x_QMARK_) ? jayq.core.add_class : jayq.core.remove_class).call(null, $elem, klass)
-  })
-};
-yolk.ui.on_click = function() {
-  var on_click = null;
-  var on_click__2 = function($elem, f) {
-    return yolk.bacon.on_value.call(null, yolk.ui.click.call(null, $elem), f)
-  };
-  var on_click__3 = function($elem, selector, f) {
-    return yolk.bacon.on_value.call(null, yolk.ui.click.call(null, $elem, selector), f)
-  };
-  on_click = function($elem, selector, f) {
-    switch(arguments.length) {
-      case 2:
-        return on_click__2.call(this, $elem, selector);
-      case 3:
-        return on_click__3.call(this, $elem, selector, f)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  on_click.cljs$lang$arity$2 = on_click__2;
-  on_click.cljs$lang$arity$3 = on_click__3;
-  return on_click
-}();
-yolk.ui.show = function() {
-  var show = null;
-  var show__2 = function($elem, property) {
-    return show.call(null, $elem, property, null)
-  };
-  var show__3 = function($elem, options, property) {
-    return yolk.bacon.on_value.call(null, yolk.bacon.filter.call(null, property), function() {
-      return $elem.show(options)
-    })
-  };
-  show = function($elem, options, property) {
-    switch(arguments.length) {
-      case 2:
-        return show__2.call(this, $elem, options);
-      case 3:
-        return show__3.call(this, $elem, options, property)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  show.cljs$lang$arity$2 = show__2;
-  show.cljs$lang$arity$3 = show__3;
-  return show
-}();
-yolk.ui.hide = function() {
-  var hide = null;
-  var hide__2 = function($elem, property) {
-    return hide.call(null, $elem, property, null)
-  };
-  var hide__3 = function($elem, options, property) {
-    return yolk.bacon.on_value.call(null, yolk.bacon.filter.call(null, property), function() {
-      return $elem.hide(options)
-    })
-  };
-  hide = function($elem, options, property) {
-    switch(arguments.length) {
-      case 2:
-        return hide__2.call(this, $elem, options);
-      case 3:
-        return hide__3.call(this, $elem, options, property)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  hide.cljs$lang$arity$2 = hide__2;
-  hide.cljs$lang$arity$3 = hide__3;
-  return hide
-}();
-yolk.ui.show_when = function() {
-  var show_when = null;
-  var show_when__2 = function($elem, property) {
-    return show_when.call(null, $elem, property)
-  };
-  var show_when__3 = function($elem, options, property) {
-    yolk.ui.show.call(null, $elem, options, property);
-    return yolk.ui.hide.call(null, $elem, options, yolk.bacon.not.call(null, property))
-  };
-  show_when = function($elem, options, property) {
-    switch(arguments.length) {
-      case 2:
-        return show_when__2.call(this, $elem, options);
-      case 3:
-        return show_when__3.call(this, $elem, options, property)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  show_when.cljs$lang$arity$2 = show_when__2;
-  show_when.cljs$lang$arity$3 = show_when__3;
-  return show_when
-}();
-yolk.ui.hide_when = function() {
-  var hide_when = null;
-  var hide_when__2 = function($elem, property) {
-    return hide_when.call(null, $elem, property)
-  };
-  var hide_when__3 = function($elem, options, property) {
-    yolk.ui.hide.call(null, $elem, options, property);
-    return yolk.ui.show.call(null, $elem, options, yolk.bacon.not.call(null, property))
-  };
-  hide_when = function($elem, options, property) {
-    switch(arguments.length) {
-      case 2:
-        return hide_when__2.call(this, $elem, options);
-      case 3:
-        return hide_when__3.call(this, $elem, options, property)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  hide_when.cljs$lang$arity$2 = hide_when__2;
-  hide_when.cljs$lang$arity$3 = hide_when__3;
-  return hide_when
-}();
-yolk.ui.switch_when = function() {
-  var switch_when = null;
-  var switch_when__3 = function($elem1, $elem2, property) {
-    return switch_when.call(null, $elem1, $elem2, null, property)
-  };
-  var switch_when__4 = function($elem1, $elem2, options, property) {
-    yolk.ui.show_when.call(null, $elem1, options, property);
-    return yolk.ui.hide_when.call(null, $elem2, options, property)
-  };
-  switch_when = function($elem1, $elem2, options, property) {
-    switch(arguments.length) {
-      case 3:
-        return switch_when__3.call(this, $elem1, $elem2, options);
-      case 4:
-        return switch_when__4.call(this, $elem1, $elem2, options, property)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  switch_when.cljs$lang$arity$3 = switch_when__3;
-  switch_when.cljs$lang$arity$4 = switch_when__4;
-  return switch_when
-}();
 goog.provide("dommy.template");
 goog.require("cljs.core");
 goog.require("dommy.attrs");
@@ -26153,49 +25926,48 @@ dommy.core.fire_BANG_ = function() {
 }();
 goog.provide("puzzle.core");
 goog.require("cljs.core");
-goog.require("cljs.reader");
 goog.require("jayq.core");
+goog.require("puzzle.handlers");
 goog.require("puzzle.templates");
-goog.require("cljs.reader");
 goog.require("yolk.bacon");
 goog.require("jayq.core");
 goog.require("dommy.core");
 puzzle.core.board_dimensions = cljs.core.PersistentVector.fromArray([9, 9], true);
 puzzle.core.init_board_state = cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, function() {
-  var iter__2611__auto__ = function iter__16254(s__16255) {
+  var iter__2611__auto__ = function iter__50678(s__50679) {
     return new cljs.core.LazySeq(null, false, function() {
-      var s__16255__$1 = s__16255;
+      var s__50679__$1 = s__50679;
       while(true) {
-        var temp__4092__auto__ = cljs.core.seq.call(null, s__16255__$1);
+        var temp__4092__auto__ = cljs.core.seq.call(null, s__50679__$1);
         if(temp__4092__auto__) {
           var xs__4579__auto__ = temp__4092__auto__;
           var i = cljs.core.first.call(null, xs__4579__auto__);
-          var iterys__2609__auto__ = function(s__16255__$1, i, xs__4579__auto__, temp__4092__auto__) {
-            return function iter__16256(s__16257) {
-              return new cljs.core.LazySeq(null, false, function(s__16255__$1, i, xs__4579__auto__, temp__4092__auto__) {
+          var iterys__2609__auto__ = function(s__50679__$1, i, xs__4579__auto__, temp__4092__auto__) {
+            return function iter__50680(s__50681) {
+              return new cljs.core.LazySeq(null, false, function(s__50679__$1, i, xs__4579__auto__, temp__4092__auto__) {
                 return function() {
-                  var s__16257__$1 = s__16257;
+                  var s__50681__$1 = s__50681;
                   while(true) {
-                    var temp__4092__auto____$1 = cljs.core.seq.call(null, s__16257__$1);
+                    var temp__4092__auto____$1 = cljs.core.seq.call(null, s__50681__$1);
                     if(temp__4092__auto____$1) {
                       var xs__4579__auto____$1 = temp__4092__auto____$1;
                       var j = cljs.core.first.call(null, xs__4579__auto____$1);
-                      return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([i, j], true), yolk.bacon.bus.call(null)], true), iter__16256.call(null, cljs.core.rest.call(null, s__16257__$1)))
+                      return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([i, j], true), cljs.core.ObjMap.fromObject(["\ufdd0'bus", "\ufdd0'occupants", "\ufdd0'blocked?", "\ufdd0'key-required?", "\ufdd0'door?"], {"\ufdd0'bus":yolk.bacon.bus.call(null), "\ufdd0'occupants":cljs.core.PersistentVector.EMPTY, "\ufdd0'blocked?":false, "\ufdd0'key-required?":false, "\ufdd0'door?":false})], true), iter__50680.call(null, cljs.core.rest.call(null, s__50681__$1)))
                     }else {
                       return null
                     }
                     break
                   }
                 }
-              }(s__16255__$1, i, xs__4579__auto__, temp__4092__auto__), null)
+              }(s__50679__$1, i, xs__4579__auto__, temp__4092__auto__), null)
             }
-          }(s__16255__$1, i, xs__4579__auto__, temp__4092__auto__);
+          }(s__50679__$1, i, xs__4579__auto__, temp__4092__auto__);
           var fs__2610__auto__ = cljs.core.seq.call(null, iterys__2609__auto__.call(null, cljs.core.range.call(null, cljs.core.second.call(null, puzzle.core.board_dimensions))));
           if(fs__2610__auto__) {
-            return cljs.core.concat.call(null, fs__2610__auto__, iter__16254.call(null, cljs.core.rest.call(null, s__16255__$1)))
+            return cljs.core.concat.call(null, fs__2610__auto__, iter__50678.call(null, cljs.core.rest.call(null, s__50679__$1)))
           }else {
-            var G__16258 = cljs.core.rest.call(null, s__16255__$1);
-            s__16255__$1 = G__16258;
+            var G__50682 = cljs.core.rest.call(null, s__50679__$1);
+            s__50679__$1 = G__50682;
             continue
           }
         }else {
@@ -26208,30 +25980,35 @@ puzzle.core.init_board_state = cljs.core.into.call(null, cljs.core.ObjMap.EMPTY,
   return iter__2611__auto__.call(null, cljs.core.range.call(null, cljs.core.first.call(null, puzzle.core.board_dimensions)))
 }());
 puzzle.core.board_state = cljs.core.atom.call(null, puzzle.core.init_board_state);
-puzzle.core.grab = function grab($board, p__16259) {
-  var vec__16261 = p__16259;
-  var x = cljs.core.nth.call(null, vec__16261, 0, null);
-  var y = cljs.core.nth.call(null, vec__16261, 1, null);
+puzzle.core.grab = function grab($board, p__50683) {
+  var vec__50685 = p__50683;
+  var x = cljs.core.nth.call(null, vec__50685, 0, null);
+  var y = cljs.core.nth.call(null, vec__50685, 1, null);
   return jayq.core.$.call(null, [cljs.core.str("[data-coords='["), cljs.core.str(x), cljs.core.str(","), cljs.core.str(y), cljs.core.str("]']")].join(""), $board)
 };
-puzzle.core.coords = function coords($cell) {
-  return cljs.core.PersistentVector.fromArray([cljs.core.first.call(null, jayq.core.data.call(null, $cell, "\ufdd0'coords")), cljs.core.last.call(null, jayq.core.data.call(null, $cell, "\ufdd0'coords"))], true)
+puzzle.core.change_state_BANG_ = function change_state_BANG_(opts) {
+  return cljs.core.swap_BANG_.call(null, puzzle.core.board_state, function(bs) {
+    return puzzle.handlers.handle.call(null, bs, opts)
+  })
 };
 puzzle.core.bind_board_BANG_ = function bind_board_BANG_($board) {
-  var G__16264 = cljs.core.seq.call(null, cljs.core.deref.call(null, puzzle.core.board_state));
+  var G__50689 = cljs.core.seq.call(null, cljs.core.deref.call(null, puzzle.core.board_state));
   while(true) {
-    if(G__16264) {
-      var vec__16265 = cljs.core.first.call(null, G__16264);
-      var coords = cljs.core.nth.call(null, vec__16265, 0, null);
-      var change_bus = cljs.core.nth.call(null, vec__16265, 1, null);
-      yolk.bacon.on_value.call(null, change_bus, function(G__16264, vec__16265, coords, change_bus) {
-        return function(new_state) {
+    if(G__50689) {
+      var vec__50690 = cljs.core.first.call(null, G__50689);
+      var coords = cljs.core.nth.call(null, vec__50690, 0, null);
+      var map__50691 = cljs.core.nth.call(null, vec__50690, 1, null);
+      var map__50691__$1 = cljs.core.seq_QMARK_.call(null, map__50691) ? cljs.core.apply.call(null, cljs.core.hash_map, map__50691) : map__50691;
+      var bus = cljs.core._lookup.call(null, map__50691__$1, "\ufdd0'bus", null);
+      yolk.bacon.on_value.call(null, bus, function(G__50689, vec__50690, coords, map__50691, map__50691__$1, bus) {
+        return function(entities) {
+          console.log(cljs.core.pr_str.call(null, entities));
           var $sq = puzzle.core.grab.call(null, $board, coords);
-          return jayq.core.inner.call(null, $sq, puzzle.templates.render.call(null, new_state))
+          return jayq.core.inner.call(null, $sq, puzzle.templates.render.call(null, cljs.core.last.call(null, entities)))
         }
-      }(G__16264, vec__16265, coords, change_bus));
-      var G__16266 = cljs.core.next.call(null, G__16264);
-      G__16264 = G__16266;
+      }(G__50689, vec__50690, coords, map__50691, map__50691__$1, bus));
+      var G__50692 = cljs.core.next.call(null, G__50689);
+      G__50689 = G__50692;
       continue
     }else {
       return null
@@ -26239,250 +26016,18 @@ puzzle.core.bind_board_BANG_ = function bind_board_BANG_($board) {
     break
   }
 };
+puzzle.core.change = function change(opts) {
+  return puzzle.core.change_state_BANG_.call(null, opts)
+};
 puzzle.core.main = function main() {
   var g = puzzle.templates.gameboard.call(null, puzzle.core.board_dimensions);
   var l = puzzle.templates.layout.call(null, g);
   jayq.core.inner.call(null, jayq.core.$.call(null, "#content"), l);
   puzzle.core.bind_board_BANG_.call(null, jayq.core.$.call(null, g));
-  return yolk.bacon.push.call(null, cljs.core._lookup.call(null, cljs.core.deref.call(null, puzzle.core.board_state), cljs.core.PersistentVector.fromArray([3, 5], true), null), cljs.core.ObjMap.fromObject(["\ufdd0'type"], {"\ufdd0'type":"\ufdd0'room-key"}))
+  puzzle.core.change.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.PersistentVector.fromArray([3, 6], true), "\ufdd0'action":"\ufdd0'placement", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'type", "\ufdd0'id"], {"\ufdd0'type":"\ufdd0'man", "\ufdd0'id":"\ufdd0'user"})}));
+  puzzle.core.change.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.PersistentVector.fromArray([6, 4], true), "\ufdd0'action":"\ufdd0'placement", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'type"], {"\ufdd0'type":"\ufdd0'room-key"})}));
+  return puzzle.core.change.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'action", "\ufdd0'direction", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.PersistentVector.fromArray([3, 6], true), "\ufdd0'action":"\ufdd0'movement", "\ufdd0'direction":"\ufdd0'north", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":"\ufdd0'user"})}))
 };
-goog.provide("puzzle.bindings");
+goog.provide("puzzle.input");
 goog.require("cljs.core");
-goog.require("jayq.core");
-goog.require("yolk.ui");
 goog.require("yolk.bacon");
-goog.require("jayq.core");
-puzzle.bindings.model = function() {
-  var model = null;
-  var model__0 = function() {
-    return Bacon.$.Model()
-  };
-  var model__1 = function(v) {
-    return Bacon.$.Model(cljs.core.clj__GT_js.call(null, v))
-  };
-  model = function(v) {
-    switch(arguments.length) {
-      case 0:
-        return model__0.call(this);
-      case 1:
-        return model__1.call(this, v)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  model.cljs$lang$arity$0 = model__0;
-  model.cljs$lang$arity$1 = model__1;
-  return model
-}();
-puzzle.bindings.on_values = function() {
-  var on_values = null;
-  var on_values__3 = function(a, b, fn) {
-    return Bacon.onValues(a, b, fn)
-  };
-  var on_values__4 = function(a, b, c, fn) {
-    return Bacon.onValues(a, b, c, fn)
-  };
-  var on_values__5 = function(a, b, c, d, fn) {
-    return Bacon.onValues(a, b, c, d, fn)
-  };
-  var on_values__6 = function(a, b, c, d, e, fn) {
-    return Bacon.onValues(a, b, c, d, e, fn)
-  };
-  var on_values__7 = function(a, b, c, d, e, f, fn) {
-    return Bacon.onValues(a, b, c, d, e, f, fn)
-  };
-  on_values = function(a, b, c, d, e, f, fn) {
-    switch(arguments.length) {
-      case 3:
-        return on_values__3.call(this, a, b, c);
-      case 4:
-        return on_values__4.call(this, a, b, c, d);
-      case 5:
-        return on_values__5.call(this, a, b, c, d, e);
-      case 6:
-        return on_values__6.call(this, a, b, c, d, e, f);
-      case 7:
-        return on_values__7.call(this, a, b, c, d, e, f, fn)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  on_values.cljs$lang$arity$3 = on_values__3;
-  on_values.cljs$lang$arity$4 = on_values__4;
-  on_values.cljs$lang$arity$5 = on_values__5;
-  on_values.cljs$lang$arity$6 = on_values__6;
-  on_values.cljs$lang$arity$7 = on_values__7;
-  return on_values
-}();
-puzzle.bindings.combine_with = function() {
-  var combine_with__delegate = function(streams_with_fn) {
-    var f = cljs.core.last.call(null, streams_with_fn);
-    var streams = cljs.core.butlast.call(null, streams_with_fn);
-    return cljs.core.apply.call(null, Bacon.combineWith, f, streams)
-  };
-  var combine_with = function(var_args) {
-    var streams_with_fn = null;
-    if(goog.isDef(var_args)) {
-      streams_with_fn = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0)
-    }
-    return combine_with__delegate.call(this, streams_with_fn)
-  };
-  combine_with.cljs$lang$maxFixedArity = 0;
-  combine_with.cljs$lang$applyTo = function(arglist__8306) {
-    var streams_with_fn = cljs.core.seq(arglist__8306);
-    return combine_with__delegate(streams_with_fn)
-  };
-  combine_with.cljs$lang$arity$variadic = combine_with__delegate;
-  return combine_with
-}();
-puzzle.bindings.zip_with = function() {
-  var zip_with__delegate = function(streams_with_fn) {
-    var f = cljs.core.last.call(null, streams_with_fn);
-    var streams = cljs.core.butlast.call(null, streams_with_fn);
-    return cljs.core.apply.call(null, Bacon.zipWith, f, streams)
-  };
-  var zip_with = function(var_args) {
-    var streams_with_fn = null;
-    if(goog.isDef(var_args)) {
-      streams_with_fn = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0)
-    }
-    return zip_with__delegate.call(this, streams_with_fn)
-  };
-  zip_with.cljs$lang$maxFixedArity = 0;
-  zip_with.cljs$lang$applyTo = function(arglist__8307) {
-    var streams_with_fn = cljs.core.seq(arglist__8307);
-    return zip_with__delegate(streams_with_fn)
-  };
-  zip_with.cljs$lang$arity$variadic = zip_with__delegate;
-  return zip_with
-}();
-puzzle.bindings.combine_model = cljs.core.comp.call(null, Bacon.$.Model.combine, cljs.core.clj__GT_js);
-puzzle.bindings.__GT_clj = function __GT_clj(obs) {
-  return yolk.bacon.map.call(null, obs, function(p1__8308_SHARP_) {
-    return cljs.core.js__GT_clj.call(null, p1__8308_SHARP_, "\ufdd0'keywordize-keys", true)
-  })
-};
-puzzle.bindings.no_dups = function no_dups(m) {
-  return yolk.bacon.skip_duplicates.call(null, puzzle.bindings.__GT_clj.call(null, m), cljs.core._EQ_)
-};
-puzzle.bindings.log_pr = function log_pr(m) {
-  return yolk.bacon.log.call(null, yolk.bacon.map.call(null, m, cljs.core.pr_str))
-};
-puzzle.bindings.lens = function lens(model, path) {
-  return model.lens(path)
-};
-puzzle.bindings.modify = function modify(model, f) {
-  return model.modify(cljs.core.comp.call(null, cljs.core.clj__GT_js, f))
-};
-puzzle.bindings.add_source = function add_source(model, stream) {
-  return model.addSource(stream)
-};
-puzzle.bindings.apply_functions = function apply_functions(model, fn_stream) {
-  return model.apply(fn_stream)
-};
-puzzle.bindings.bind = function bind(left, right) {
-  return left.bind(right)
-};
-puzzle.bindings.set_value = function set_value(model, value) {
-  return model.set(cljs.core.clj__GT_js.call(null, value))
-};
-puzzle.bindings.text_field_value = Bacon.$.textFieldValue;
-puzzle.bindings.$text_field_value = function() {
-  var $text_field_value = null;
-  var $text_field_value__1 = function(sel) {
-    return puzzle.bindings.text_field_value.call(null, jayq.core.$.call(null, sel))
-  };
-  var $text_field_value__2 = function(sel, default$) {
-    return puzzle.bindings.text_field_value.call(null, jayq.core.$.call(null, sel), default$)
-  };
-  $text_field_value = function(sel, default$) {
-    switch(arguments.length) {
-      case 1:
-        return $text_field_value__1.call(this, sel);
-      case 2:
-        return $text_field_value__2.call(this, sel, default$)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  $text_field_value.cljs$lang$arity$1 = $text_field_value__1;
-  $text_field_value.cljs$lang$arity$2 = $text_field_value__2;
-  return $text_field_value
-}();
-puzzle.bindings.select_value = Bacon.$.selectValue;
-puzzle.bindings.assign = function assign(obs, el, attr) {
-  return obs.assign(el, attr)
-};
-puzzle.bindings.clickE = function() {
-  var clickE = null;
-  var clickE__1 = function($elem) {
-    return $elem.clickE()
-  };
-  var clickE__2 = function($elem, selector) {
-    return $elem.clickE(selector)
-  };
-  clickE = function($elem, selector) {
-    switch(arguments.length) {
-      case 1:
-        return clickE__1.call(this, $elem);
-      case 2:
-        return clickE__2.call(this, $elem, selector)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  clickE.cljs$lang$arity$1 = clickE__1;
-  clickE.cljs$lang$arity$2 = clickE__2;
-  return clickE
-}();
-puzzle.bindings.clickE_prevent = function clickE_prevent($elem) {
-  return yolk.bacon.do_action.call(null, puzzle.bindings.clickE.call(null, $elem), jayq.core.prevent)
-};
-puzzle.bindings.clickE_enabled = function clickE_enabled($elem) {
-  return yolk.bacon.filter.call(null, puzzle.bindings.clickE_prevent.call(null, $elem), function() {
-    return cljs.core.not.call(null, jayq.core.has_class.call(null, $elem, "disabled"))
-  })
-};
-puzzle.bindings.keyupE = function() {
-  var keyupE = null;
-  var keyupE__1 = function($elem) {
-    return $elem.keyupE()
-  };
-  var keyupE__2 = function($elem, selector) {
-    return $elem.keyupE(selector)
-  };
-  keyupE = function($elem, selector) {
-    switch(arguments.length) {
-      case 1:
-        return keyupE__1.call(this, $elem);
-      case 2:
-        return keyupE__2.call(this, $elem, selector)
-    }
-    throw new Error("Invalid arity: " + arguments.length);
-  };
-  keyupE.cljs$lang$arity$1 = keyupE__1;
-  keyupE.cljs$lang$arity$2 = keyupE__2;
-  return keyupE
-}();
-puzzle.bindings.keypressE = function keypressE($elem) {
-  return $elem.keypressE()
-};
-puzzle.bindings.keydownE = function keydownE($elem) {
-  return $elem.keydownE()
-};
-puzzle.bindings.changeE = function changeE($elem) {
-  return $elem.changeE()
-};
-puzzle.bindings.mousemoveE = function mousemoveE($elem) {
-  return $elem.mousemoveE()
-};
-puzzle.bindings.mouseupE = function mouseupE($elem) {
-  return $elem.mouseupE()
-};
-puzzle.bindings.mousedownE = function mousedownE($elem) {
-  return $elem.mousedownE()
-};
-puzzle.bindings.bind_click = function bind_click($elem, f) {
-  return yolk.bacon.on_value.call(null, yolk.bacon.do_action.call(null, puzzle.bindings.clickE.call(null, $elem), jayq.core.prevent), f)
-};
-puzzle.bindings.key_stream = function key_stream($elem, key_code) {
-  return yolk.bacon.filter.call(null, puzzle.bindings.keyupE.call(null, $elem), function(p1__8309_SHARP_) {
-    return cljs.core._EQ_.call(null, p1__8309_SHARP_.keyCode, key_code)
-  })
-};

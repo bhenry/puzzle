@@ -5,13 +5,16 @@
 (deftemplate blank [& opts]
   [:div.square])
 
+(deftemplate man [& opts]
+  [:i.fa.fa-male])
+
 (deftemplate room-key [& opts]
   [:i.fa.fa-key])
 ;;END OF SQUARES
 
-(defn render [s]
-  (condp = (:type s)
-    :square (blank)
+(defn render [opts]
+  (condp = (:type opts)
+    :man (man)
     :room-key (room-key)
     (blank)))
 
@@ -22,7 +25,7 @@
       [:tr {:class (str i)}
        (for [j (range w)]
          [:td {:class (str j)
-               :data-coords (format "[%s,%s]" j i)}
+               :data-coords (str "[" j "," i "]")}
           (blank)])])]])
 
 (deftemplate layout [content]
