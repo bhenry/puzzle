@@ -84,7 +84,13 @@
 (defn main []
   (init-board-display world-model)
 
-  (i/keyboard-control ($ "body") world-model)
+  (-> (:state-changed world-model)
+      (b/on-value
+       (fn [points]
+         (swap! (:points world-model)
+                #(merge % points))
+         (render-points points))))
+
   (-> (:user-movements world-model)
       (b/on-value
        (fn [dir]
@@ -94,13 +100,10 @@
                     :action :move
                     :entity {:id :user}}))))
   
-  (-> (:state-changed world-model)
-      (b/on-value
-       (fn [points]
-         (swap! (:points world-model)
-                #(merge % points))
-         (render-points points))))
-
+  ;;keyboard input
+  (-> (i/arrow-stream ($ "body"))
+      (b/on-value (fn [dir] (b/push (:user-movements world-model) dir))))
+  
   (h/handle world-model
             {:coords [1004 1003]
              :action :place
