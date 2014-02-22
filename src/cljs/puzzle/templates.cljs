@@ -29,7 +29,8 @@
 (deftemplate gameboard [person dimensions board]
   (let [[[a b] [c d]] (find-corners person dimensions)]
     [:div#gameboard.noselect
-     [:table {:border "1px" :border-collapse true}
+     [:table {:border "1px" :border-collapse true
+              :data-constraints [a b c d]}
       (for [i (range b d)]
         [:tr {:class (str i)}
          (for [j (range a c)]

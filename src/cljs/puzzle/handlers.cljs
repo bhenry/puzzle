@@ -35,6 +35,11 @@
   (assoc cell
     :occupants (conj (:occupants cell) entity)))
 
+(defn outside? [[[a b] [c d]] [x y]]
+  (js/console.log a b c d x y)
+  (not (and (some #{x} (range b d))
+            (some #{y} (range a c)))))
+
 (defn move [board {:keys [coords direction entity]}]  
   (let [[f t] [coords (move* coords direction)]
         [from ent] (remove-entity (get board f) entity)
@@ -47,7 +52,7 @@
       (b/push (:bus from) (:occupants from)))
     (when (:bus to)
       (b/push (:bus to) (:occupants to)))
-
+    
     updated))
 
 (defn handle [board opts]
