@@ -7,7 +7,7 @@
             [yolk.bacon :as b]))
 
 (def board-dimensions [9 9]) ;;[h w]
-(def user-start [0 0]) ;;[x y]
+(def user-start [1000 1000]) ;;[x y]
 
 (def character
   {:type :man
@@ -36,16 +36,23 @@
    :points (atom (init-board user-start character))
    :user-location (atom user-start)
    :user-movements (b/bus)
-   :state-changed (b/bus)
-   :grid-chanded (b/bus)})
+   :state-changed (b/bus)})
+
+(defn visible-points [world]
+  @(:visible world))
 
 (defn init-board-display
   ([] (init-board-display world-model))
   ([world]
-     (let [g (t/gameboard @(:user-location world)
-                          board-dimensions
-                          @(:points world))
+     (let [loc @(:user-location world)
+           bd board-dimensions
+           g (t/gameboard loc bd @(:points world))
            l (t/layout g)]
+       (reset! (:visible world)
+               (let [[[a b] [c d]] (t/find-corners loc bd)]
+                 (for [i (range b d)
+                       j (range a c)]
+                   [i j])))
        (-> ($ "#content") (j/inner l)))))
 
 (defn grab [$board [x y]]
@@ -61,26 +68,11 @@
                        t/render)]
        (j/inner $point entity))))
 
-(defn within?
-  "returns true if x is in (range a b)"
-  [x a b]
-  (boolean (some #{x} (range a b))))
-
-(defn within-grid?
-  "returns true when [x y] is within [a b] [c d]"
-  [[[a b] [c d]] [x y]]
-  (and (within? x a c)
-       (within? y b d)))
-
-(defn visible-points [world points]
-  (filter (partial within-grid? @(:visible world))
-          (map first points)))
-
 (defn render-points
   ([points] (render-points points ($ "#gameboard")))
   ([points $board] (render-points points $board world-model))
   ([points $board world]
-     (let [visible (visible-points world points)]
+     (let [visible (visible-points world)]
        (if (some #{@(:user-location world)} visible)
          (doseq [point visible]
            (render-point point $board world))
@@ -92,9 +84,12 @@
   (i/keyboard-control ($ "body") world-model)
   (-> (:user-movements world-model)
       (b/on-value
-       (fn [[xy dir]]
+       (fn [dir]
+         (js/console.log (pr-str @(:user-location world-model)
+                                 dir
+                                 @(:visible world-model)))
          (h/handle world-model
-                   {:coords xy
+                   {:coords @(:user-location world-model)
                     :direction dir
                     :action :move
                     :entity {:id :user}}))))
@@ -105,6 +100,12 @@
          (swap! (:points world-model)
                 #(merge % points))
          (render-points points))))
+
+#_  (h/handle world-model
+            {:coords [1008 1003]
+             :action :place
+             :entity {:type :room-key
+                      :id :room-key}})
 
   ;;begin of (comment...
   (comment

@@ -15,11 +15,11 @@
   (-> (.keydownE $elem)
       (b/filter (fn [e] (not= :sit (read-key-input e))))
       (b/do-action j/prevent)
+      (b/throttle 200)
       (b/map (fn [e] (read-key-input e)))))
 
 (defn keyboard-control [$body world]
   (-> (arrow-stream $body)
       (b/on-value
        (fn [dir]
-         (-> (:user-movements world)
-             (b/push [@(:user-location world) dir]))))))
+         (b/push (:user-movements world) dir)))))
