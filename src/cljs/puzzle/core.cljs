@@ -101,8 +101,8 @@
                 #(merge % points))
          (render-points points))))
 
-#_  (h/handle world-model
-            {:coords [1008 1003]
+  (h/handle world-model
+            {:coords [1004 1003]
              :action :place
              :entity {:type :room-key
                       :id :room-key}})
@@ -129,5 +129,5 @@
     (render-point [12 12])
 
     
-    );;end of (comment...
+    ) ;;end of (comment...
   )

@@ -5,7 +5,7 @@
   (let [points @(:points world)
         {:keys [occupants] :as point} (get points coords)
         occs (conj occupants entity)]
-    (assoc-in points coords (assoc point :occupants occs))))
+    (assoc points coords (assoc point :occupants occs))))
 
 (defn move* [[x y] dir]
   (let [dist 1]
