@@ -7,7 +7,7 @@
             [yolk.bacon :as b]))
 
 (def board-dimensions [9 9]) ;;[h w]
-(def user-start [14 15]) ;;[x y]
+(def user-start [0 0]) ;;[x y]
 
 (def character
   {:type :man
@@ -66,18 +66,25 @@
   [x a b]
   (boolean (some #{x} (range a b))))
 
+(defn within-grid?
+  "returns true when [x y] is within [a b] [c d]"
+  [[[a b] [c d]] [x y]]
+  (and (within? x a c)
+       (within? y b d)))
+
 (defn visible-points [world points]
-  (let [[[a b] [c d]] @(:visible world)]
-    (filter #(and (within? (first %) a c)
-                  (within? (second %) b d))
-            (map first points))))
+  (filter (partial within-grid? @(:visible world))
+          (map first points)))
 
 (defn render-points
   ([points] (render-points points ($ "#gameboard")))
   ([points $board] (render-points points $board world-model))
   ([points $board world]
-     (doseq [point (visible-points world points)]
-       (render-point point $board world))))
+     (let [visible (visible-points world points)]
+       (if (some #{@(:user-location world)} visible)
+         (doseq [point visible]
+           (render-point point $board world))
+         (init-board-display world)))))
 
 (defn main []
   (init-board-display world-model)
@@ -86,7 +93,6 @@
   (-> (:user-movements world-model)
       (b/on-value
        (fn [[xy dir]]
-         (js/console.log (pr-str xy dir))
          (h/handle world-model
                    {:coords xy
                     :direction dir
