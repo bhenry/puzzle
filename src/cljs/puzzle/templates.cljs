@@ -20,22 +20,24 @@
       (blank))))
 
 (defn find-corners [[x y] [h w]]
-  (let [a (- x (rem x h))
-        b (- y (rem y w))
-        c (+ a h)
-        d (+ b w)]
+  (let [a (- x (rem x w))
+        b (- y (rem y h))
+        c (+ a w)
+        d (+ b h)]
     [[a b] [c d]]))
 
-(deftemplate gameboard [person dimensions]
+(deftemplate gameboard [person dimensions board]
   (let [[[a b] [c d]] (find-corners person dimensions)]
     [:div#gameboard.noselect
      [:table {:border "1px" :border-collapse true}
-      (for [i (range a c)]
+      (for [i (range b d)]
         [:tr {:class (str i)}
-         (for [j (range b d)]
+         (for [j (range a c)]
            [:td {:class (str j)
                  :data-coords (str "[" j "," i "]")}
-            (blank)])])]]))
+            (-> (get board [j i])
+                :occupants
+                render)])])]]))
 
 (deftemplate layout [content]
   [:div#inner-content

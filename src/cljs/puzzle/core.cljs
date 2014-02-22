@@ -6,41 +6,68 @@
             [puzzle.handlers :as h]
             [puzzle.templates :as t]))
 
+(declare render-board)
+
 (def board-dimensions [9 9]) ;;[h w]
 
 (def user-state
   {:loc (atom [10 15])
    :movements (b/bus)})
 
+
+(defn grab [$board [x y]]
+  ($ (str "[data-coords='[" x "," y "]']") $board))
+
+(defn wrap [bus i j]
+  (-> bus
+      (b/on-value
+       (fn [entities]
+         (let [$sq (grab ($ "#gameboard") [i j])]
+           (j/inner $sq (t/render entities))))))
+  bus)
+
 (defn init-board-state [[[a b] [c d]]]
   (into {}
         (for [i (range a c)
-              j (range b d)]
-          [[i j] {:bus (b/bus)
+              j (range b d)
+              :let [bus (b/bus)]]
+          [[i j] {:bus (wrap bus i j)
                   :occupants []
                   :blocked? false
                   :key-required? false
                   :door? false}])))
 
-(def board-state (atom (init-board-state
-                        (t/find-corners @(:loc user-state)
-                                        board-dimensions))))
+(defn add-to-board [coords board]
+  (merge board
+         (init-board-state
+          (t/find-corners coords
+                          board-dimensions))))
 
-(defn grab [$board [x y]]
-  ($ (str "[data-coords='[" x "," y "]']") $board))
+(def board-state
+  (atom (add-to-board @(:loc user-state)
+                      {:change-grid (b/bus)
+                       :add-grid (b/bus)})))
 
-(defn change! [opts]
+(-> @board-state
+    :add-grid
+    (b/on-value
+     (fn [new-coords]
+       (swap! board-state
+              (partial add-to-board new-coords)))))
+
+(-> @board-state
+    :change-grid
+    (b/on-value
+     (fn [coords]
+       (js/console.log "here")
+       (render-board coords))))
+
+(defn change! [{:keys [coords] :as opts}]
   (swap! board-state
          (fn [bs]
+           (when-not (get bs coords)
+             (b/push (:add-grid bs) coords))
            (h/handle bs opts))))
-
-(defn bind-board! [$board board]
-  (doseq [[coords {:keys [bus]}] @board]
-    (-> bus
-        (b/on-value
-         (fn [entities]
-           (let [$sq (grab $board coords)]
-             (j/inner $sq (t/render entities))))))))
 
 (defn handle-user-movements! [u]
   (-> (:movements u)
@@ -53,19 +80,15 @@
                      :entity {:id :user}})
            (reset! (:loc u) (h/move* loc dir)))))))
 
+(defn render-board [coords]
+  (let [g (t/gameboard coords board-dimensions @board-state)
+        l (t/layout g)]
+    (-> ($ "#content") (j/inner l))))
+
 (defn main []
-  (let [g (t/gameboard @(:loc user-state) board-dimensions)
-        l (t/layout g)
-        k (i/keyboard-control ($ "body"))]
+  (let [k (i/keyboard-control ($ "body"))]
 
-    (-> ($ "#content") (j/inner l))
-    (bind-board! ($ g) board-state)
-
-    (change! {:coords @(:loc user-state)
-              :action :placement
-              :entity {:type :man
-                       :id :user
-                       :zi 0}})
+    (render-board @(:loc user-state))
 
     (handle-user-movements! user-state)
 
@@ -73,4 +96,10 @@
     
 #_    (change! {:coords [6 4]
               :action :placement
-              :entity {:type :room-key}})))
+              :entity {:type :room-key}})
+
+    (change! {:coords @(:loc user-state)
+              :action :placement
+              :entity {:type :man
+                       :id :user
+                       :zi 0}})))

@@ -15,8 +15,7 @@
   (-> (.keydownE $elem)
       (b/filter (fn [e] (not= :sit (read-key-input e))))
       (b/do-action j/prevent)
-      (b/map (fn [e] (read-key-input e)))
-      b/log))
+      (b/map (fn [e] (read-key-input e)))))
 
 (defn keyboard-control [$body]
   (arrow-stream $body))
