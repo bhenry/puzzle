@@ -41,10 +41,13 @@
 (defn visible-points [world]
   @(:visible world))
 
+(defn user-location [world]
+  @(:user-location world))
+
 (defn init-board-display
   ([] (init-board-display world-model))
   ([world]
-     (let [loc @(:user-location world)
+     (let [loc (user-location world)
            bd board-dimensions
            g (t/gameboard loc bd @(:points world))
            l (t/layout g)]
@@ -73,7 +76,7 @@
   ([points $board] (render-points points $board world-model))
   ([points $board world]
      (let [visible (visible-points world)]
-       (if (some #{@(:user-location world)} visible)
+       (if (some #{(user-location world)} visible)
          (doseq [point visible]
            (render-point point $board world))
          (init-board-display world)))))
@@ -85,11 +88,8 @@
   (-> (:user-movements world-model)
       (b/on-value
        (fn [dir]
-         (js/console.log (pr-str @(:user-location world-model)
-                                 dir
-                                 @(:visible world-model)))
          (h/handle world-model
-                   {:coords @(:user-location world-model)
+                   {:coords (user-location world-model)
                     :direction dir
                     :action :move
                     :entity {:id :user}}))))
@@ -105,29 +105,4 @@
             {:coords [1004 1003]
              :action :place
              :entity {:type :room-key
-                      :id :room-key}})
-
-  ;;begin of (comment...
-  (comment
-    (reset! (:points world-model) [])
-
-    (render-board)
-
-    (reset!
-     (:points world-model)
-     {[15 16] (default-point {:occupants [room-key]})
-      [13 17] (default-point {:occupants [character]})})
-
-    (render-board)
-
-    (swap!
-     (:points world-model)
-     (fn [m]
-       (merge m
-              {[12 12] (default-point {:occupants [room-key]})})))
-
-    (render-point [12 12])
-
-    
-    ) ;;end of (comment...
-  )
+                      :id :room-key}}))

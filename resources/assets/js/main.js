@@ -25996,9 +25996,9 @@ puzzle.core.user_start = cljs.core.PersistentVector.fromArray([1E3, 1E3], true);
 puzzle.core.character = cljs.core.ObjMap.fromObject(["\ufdd0'type", "\ufdd0'id", "\ufdd0'zi"], {"\ufdd0'type":"\ufdd0'man", "\ufdd0'id":"\ufdd0'user", "\ufdd0'zi":0});
 puzzle.core.room_key = cljs.core.ObjMap.fromObject(["\ufdd0'type", "\ufdd0'id", "\ufdd0'zi"], {"\ufdd0'type":"\ufdd0'room-key", "\ufdd0'id":"\ufdd0'room-key", "\ufdd0'zi":100});
 puzzle.core.default_point = function() {
-  var default_point__delegate = function(p__122976) {
-    var vec__122978 = p__122976;
-    var options = cljs.core.nth.call(null, vec__122978, 0, null);
+  var default_point__delegate = function(p__125798) {
+    var vec__125800 = p__125798;
+    var options = cljs.core.nth.call(null, vec__125800, 0, null);
     return cljs.core.ObjMap.fromObject(["\ufdd0'bus", "\ufdd0'occupants", "\ufdd0'blocked?", "\ufdd0'key-required?", "\ufdd0'door?"], {"\ufdd0'bus":yolk.bacon.bus.call(null), "\ufdd0'occupants":function() {
       var or__3943__auto__ = (new cljs.core.Keyword("\ufdd0'occupants")).call(null, options);
       if(cljs.core.truth_(or__3943__auto__)) {
@@ -26030,16 +26030,16 @@ puzzle.core.default_point = function() {
     }()})
   };
   var default_point = function(var_args) {
-    var p__122976 = null;
+    var p__125798 = null;
     if(goog.isDef(var_args)) {
-      p__122976 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0)
+      p__125798 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0)
     }
-    return default_point__delegate.call(this, p__122976)
+    return default_point__delegate.call(this, p__125798)
   };
   default_point.cljs$lang$maxFixedArity = 0;
-  default_point.cljs$lang$applyTo = function(arglist__122979) {
-    var p__122976 = cljs.core.seq(arglist__122979);
-    return default_point__delegate(p__122976)
+  default_point.cljs$lang$applyTo = function(arglist__125801) {
+    var p__125798 = cljs.core.seq(arglist__125801);
+    return default_point__delegate(p__125798)
   };
   default_point.cljs$lang$arity$variadic = default_point__delegate;
   return default_point
@@ -26052,58 +26052,61 @@ puzzle.core.world_model = cljs.core.ObjMap.fromObject(["\ufdd0'visible", "\ufdd0
 puzzle.core.visible_points = function visible_points(world) {
   return cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'visible")).call(null, world))
 };
+puzzle.core.user_location = function user_location(world) {
+  return cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, world))
+};
 puzzle.core.init_board_display = function() {
   var init_board_display = null;
   var init_board_display__0 = function() {
     return init_board_display.call(null, puzzle.core.world_model)
   };
   var init_board_display__1 = function(world) {
-    var loc = cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, world));
+    var loc = puzzle.core.user_location.call(null, world);
     var bd = puzzle.core.board_dimensions;
     var g = puzzle.templates.gameboard.call(null, loc, bd, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'points")).call(null, world)));
     var l = puzzle.templates.layout.call(null, g);
     cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'visible")).call(null, world), function() {
-      var vec__122987 = puzzle.templates.find_corners.call(null, loc, bd);
-      var vec__122988 = cljs.core.nth.call(null, vec__122987, 0, null);
-      var a = cljs.core.nth.call(null, vec__122988, 0, null);
-      var b = cljs.core.nth.call(null, vec__122988, 1, null);
-      var vec__122989 = cljs.core.nth.call(null, vec__122987, 1, null);
-      var c = cljs.core.nth.call(null, vec__122989, 0, null);
-      var d = cljs.core.nth.call(null, vec__122989, 1, null);
-      var iter__2611__auto__ = function iter__122990(s__122991) {
+      var vec__125809 = puzzle.templates.find_corners.call(null, loc, bd);
+      var vec__125810 = cljs.core.nth.call(null, vec__125809, 0, null);
+      var a = cljs.core.nth.call(null, vec__125810, 0, null);
+      var b = cljs.core.nth.call(null, vec__125810, 1, null);
+      var vec__125811 = cljs.core.nth.call(null, vec__125809, 1, null);
+      var c = cljs.core.nth.call(null, vec__125811, 0, null);
+      var d = cljs.core.nth.call(null, vec__125811, 1, null);
+      var iter__2611__auto__ = function iter__125812(s__125813) {
         return new cljs.core.LazySeq(null, false, function() {
-          var s__122991__$1 = s__122991;
+          var s__125813__$1 = s__125813;
           while(true) {
-            var temp__4092__auto__ = cljs.core.seq.call(null, s__122991__$1);
+            var temp__4092__auto__ = cljs.core.seq.call(null, s__125813__$1);
             if(temp__4092__auto__) {
               var xs__4579__auto__ = temp__4092__auto__;
               var i = cljs.core.first.call(null, xs__4579__auto__);
-              var iterys__2609__auto__ = function(s__122991__$1, i, xs__4579__auto__, temp__4092__auto__) {
-                return function iter__122992(s__122993) {
-                  return new cljs.core.LazySeq(null, false, function(s__122991__$1, i, xs__4579__auto__, temp__4092__auto__) {
+              var iterys__2609__auto__ = function(s__125813__$1, i, xs__4579__auto__, temp__4092__auto__) {
+                return function iter__125814(s__125815) {
+                  return new cljs.core.LazySeq(null, false, function(s__125813__$1, i, xs__4579__auto__, temp__4092__auto__) {
                     return function() {
-                      var s__122993__$1 = s__122993;
+                      var s__125815__$1 = s__125815;
                       while(true) {
-                        var temp__4092__auto____$1 = cljs.core.seq.call(null, s__122993__$1);
+                        var temp__4092__auto____$1 = cljs.core.seq.call(null, s__125815__$1);
                         if(temp__4092__auto____$1) {
                           var xs__4579__auto____$1 = temp__4092__auto____$1;
                           var j = cljs.core.first.call(null, xs__4579__auto____$1);
-                          return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([i, j], true), iter__122992.call(null, cljs.core.rest.call(null, s__122993__$1)))
+                          return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([i, j], true), iter__125814.call(null, cljs.core.rest.call(null, s__125815__$1)))
                         }else {
                           return null
                         }
                         break
                       }
                     }
-                  }(s__122991__$1, i, xs__4579__auto__, temp__4092__auto__), null)
+                  }(s__125813__$1, i, xs__4579__auto__, temp__4092__auto__), null)
                 }
-              }(s__122991__$1, i, xs__4579__auto__, temp__4092__auto__);
+              }(s__125813__$1, i, xs__4579__auto__, temp__4092__auto__);
               var fs__2610__auto__ = cljs.core.seq.call(null, iterys__2609__auto__.call(null, cljs.core.range.call(null, a, c)));
               if(fs__2610__auto__) {
-                return cljs.core.concat.call(null, fs__2610__auto__, iter__122990.call(null, cljs.core.rest.call(null, s__122991__$1)))
+                return cljs.core.concat.call(null, fs__2610__auto__, iter__125812.call(null, cljs.core.rest.call(null, s__125813__$1)))
               }else {
-                var G__122994 = cljs.core.rest.call(null, s__122991__$1);
-                s__122991__$1 = G__122994;
+                var G__125816 = cljs.core.rest.call(null, s__125813__$1);
+                s__125813__$1 = G__125816;
                 continue
               }
             }else {
@@ -26130,10 +26133,10 @@ puzzle.core.init_board_display = function() {
   init_board_display.cljs$lang$arity$1 = init_board_display__1;
   return init_board_display
 }();
-puzzle.core.grab = function grab($board, p__122995) {
-  var vec__122997 = p__122995;
-  var x = cljs.core.nth.call(null, vec__122997, 0, null);
-  var y = cljs.core.nth.call(null, vec__122997, 1, null);
+puzzle.core.grab = function grab($board, p__125817) {
+  var vec__125819 = p__125817;
+  var x = cljs.core.nth.call(null, vec__125819, 0, null);
+  var y = cljs.core.nth.call(null, vec__125819, 1, null);
   return jayq.core.$.call(null, [cljs.core.str("[data-coords='["), cljs.core.str(x), cljs.core.str(","), cljs.core.str(y), cljs.core.str("]']")].join(""), $board)
 };
 puzzle.core.render_point = function() {
@@ -26175,14 +26178,14 @@ puzzle.core.render_points = function() {
   };
   var render_points__3 = function(points, $board, world) {
     var visible = puzzle.core.visible_points.call(null, world);
-    if(cljs.core.truth_(cljs.core.some.call(null, cljs.core.PersistentHashSet.fromArray([cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, world))]), visible))) {
-      var G__123000 = cljs.core.seq.call(null, visible);
+    if(cljs.core.truth_(cljs.core.some.call(null, cljs.core.PersistentHashSet.fromArray([puzzle.core.user_location.call(null, world)]), visible))) {
+      var G__125822 = cljs.core.seq.call(null, visible);
       while(true) {
-        if(G__123000) {
-          var point = cljs.core.first.call(null, G__123000);
+        if(G__125822) {
+          var point = cljs.core.first.call(null, G__125822);
           puzzle.core.render_point.call(null, point, $board, world);
-          var G__123001 = cljs.core.next.call(null, G__123000);
-          G__123000 = G__123001;
+          var G__125823 = cljs.core.next.call(null, G__125822);
+          G__125822 = G__125823;
           continue
         }else {
           return null
@@ -26213,15 +26216,13 @@ puzzle.core.main = function main() {
   puzzle.core.init_board_display.call(null, puzzle.core.world_model);
   puzzle.input.keyboard_control.call(null, jayq.core.$.call(null, "body"), puzzle.core.world_model);
   yolk.bacon.on_value.call(null, (new cljs.core.Keyword("\ufdd0'user-movements")).call(null, puzzle.core.world_model), function(dir) {
-    console.log(cljs.core.pr_str.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, puzzle.core.world_model)), dir, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'visible")).call(null, puzzle.core.world_model))));
-    return puzzle.handlers.handle.call(null, puzzle.core.world_model, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'direction", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, puzzle.core.world_model)), "\ufdd0'direction":dir, "\ufdd0'action":"\ufdd0'move", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":"\ufdd0'user"})}))
+    return puzzle.handlers.handle.call(null, puzzle.core.world_model, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'direction", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":puzzle.core.user_location.call(null, puzzle.core.world_model), "\ufdd0'direction":dir, "\ufdd0'action":"\ufdd0'move", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":"\ufdd0'user"})}))
   });
   yolk.bacon.on_value.call(null, (new cljs.core.Keyword("\ufdd0'state-changed")).call(null, puzzle.core.world_model), function(points) {
-    cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'points")).call(null, puzzle.core.world_model), function(p1__122998_SHARP_) {
-      return cljs.core.merge.call(null, p1__122998_SHARP_, points)
+    cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'points")).call(null, puzzle.core.world_model), function(p1__125820_SHARP_) {
+      return cljs.core.merge.call(null, p1__125820_SHARP_, points)
     });
     return puzzle.core.render_points.call(null, points)
   });
-  puzzle.handlers.handle.call(null, puzzle.core.world_model, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.PersistentVector.fromArray([1004, 1003], true), "\ufdd0'action":"\ufdd0'place", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'type", "\ufdd0'id"], {"\ufdd0'type":"\ufdd0'room-key", "\ufdd0'id":"\ufdd0'room-key"})}));
-  return null
+  return puzzle.handlers.handle.call(null, puzzle.core.world_model, cljs.core.ObjMap.fromObject(["\ufdd0'coords", "\ufdd0'action", "\ufdd0'entity"], {"\ufdd0'coords":cljs.core.PersistentVector.fromArray([1004, 1003], true), "\ufdd0'action":"\ufdd0'place", "\ufdd0'entity":cljs.core.ObjMap.fromObject(["\ufdd0'type", "\ufdd0'id"], {"\ufdd0'type":"\ufdd0'room-key", "\ufdd0'id":"\ufdd0'room-key"})}))
 };
