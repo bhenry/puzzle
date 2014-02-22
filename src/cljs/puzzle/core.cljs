@@ -36,11 +36,11 @@
    :points (atom (init-board user-start character))
    :user-location (atom user-start)
    :user-movements (b/bus)
-   :add-point (b/bus)
-   :change-view (b/bus)})
+   :state-changed (b/bus)
+   :grid-chanded (b/bus)})
 
-(defn render-board
-  ([] (render-board world-model))
+(defn init-board-display
+  ([] (init-board-display world-model))
   ([world]
      (let [g (t/gameboard @(:user-location world)
                           board-dimensions
@@ -61,27 +61,69 @@
                        t/render)]
        (j/inner $point entity))))
 
+(defn within?
+  "returns true if x is in (range a b)"
+  [x a b]
+  (boolean (some #{x} (range a b))))
+
+(defn visible-points [world points]
+  (let [[[a b] [c d]] @(:visible world)]
+    (filter #(and (within? (first %) a c)
+                  (within? (second %) b d))
+            (map first points))))
+
+(defn render-points
+  ([points] (render-points points ($ "#gameboard")))
+  ([points $board] (render-points points $board world-model))
+  ([points $board world]
+     (doseq [point (visible-points world points)]
+       (render-point point $board world))))
+
 (defn main []
-  (render-board)
+  (init-board-display world-model)
 
-  (reset! (:points world-model) [])
+  (i/keyboard-control ($ "body") world-model)
+  (-> (:user-movements world-model)
+      (b/on-value
+       (fn [[xy dir]]
+         (js/console.log (pr-str xy dir))
+         (h/handle world-model
+                   {:coords xy
+                    :direction dir
+                    :action :move
+                    :entity {:id :user}}))))
+  
+  (-> (:state-changed world-model)
+      (b/on-value
+       (fn [points]
+         (swap! (:points world-model)
+                #(merge % points))
+         (render-points points))))
 
-  (render-board)
+  ;;begin of (comment...
+  (comment
+    (reset! (:points world-model) [])
 
-  (reset!
-   (:points world-model)
-   {[15 16] (default-point {:occupants [room-key]})
-    [13 17] (default-point {:occupants [character]})})
+    (render-board)
 
-  (render-board)
+    (reset!
+     (:points world-model)
+     {[15 16] (default-point {:occupants [room-key]})
+      [13 17] (default-point {:occupants [character]})})
 
-  (swap!
-   (:points world-model)
-   (fn [m]
-     (merge m
-            {[12 12] (default-point {:occupants [room-key]})})))
+    (render-board)
 
-  (render-point [12 12]))
+    (swap!
+     (:points world-model)
+     (fn [m]
+       (merge m
+              {[12 12] (default-point {:occupants [room-key]})})))
+
+    (render-point [12 12])
+
+    
+    );;end of (comment...
+  )
 
 #_
 (comment

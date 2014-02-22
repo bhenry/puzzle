@@ -22,41 +22,26 @@
       :west  [(- x dist) y]
       :east  [(+ x dist) y])))
 
-(defn remove-entity [cell ent]
-  (let [occs (:occupants cell)
-        entity (first (filter #(= (:id ent)
-                                  (:id %))
-                              occs))]
-    [(assoc cell
-       :occupants (remove #{entity} (:occupants cell)))
-     entity]))
+(defn remove-entity [point ent]
+  (let [occs (:occupants point)
+        entity (first (filter #(= (:id ent) (:id %)) occs))]
+    [(assoc point :occupants (remove #{entity} occs)) entity]))
 
-(defn add-entity [cell entity]
-  (assoc cell
-    :occupants (conj (:occupants cell) entity)))
+(defn add-entity [point entity]
+  (assoc point
+    :occupants (conj (:occupants point) entity)))
 
-(defn outside? [[[a b] [c d]] [x y]]
-  (js/console.log a b c d x y)
-  (not (and (some #{x} (range b d))
-            (some #{y} (range a c)))))
+(defn move [world {:keys [coords direction entity]}]  
+  (let [points @(:points world)
+        [f t] [coords (move* coords direction)]
+        [from ent] (remove-entity (get points f) entity)
+        to (add-entity (get points t) ent)]
+    (reset! (:user-location world) t)
+    (assoc points f from t to)))
 
-(defn move [board {:keys [coords direction entity]}]  
-  (let [[f t] [coords (move* coords direction)]
-        [from ent] (remove-entity (get board f) entity)
-        to (add-entity (get board t) ent)
-        updated (assoc board f from t to)]
-
-    (when-not (get board t)
-      (b/push (:add-grid board) t))
-    (when (:bus from)
-      (b/push (:bus from) (:occupants from)))
-    (when (:bus to)
-      (b/push (:bus to) (:occupants to)))
-    
-    updated))
-
-(defn handle [board opts]
-  (condp = (:action opts)
-    :placement (place board opts)
-    :movement (move board opts)
-    board))
+(defn handle [world event]
+  (let [new (condp = (:action event)
+              :move (move world event)
+              nil)]
+    (when new
+      (b/push (:state-changed world) new))))

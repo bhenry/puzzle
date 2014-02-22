@@ -17,5 +17,9 @@
       (b/do-action j/prevent)
       (b/map (fn [e] (read-key-input e)))))
 
-(defn keyboard-control [$body]
-  (arrow-stream $body))
+(defn keyboard-control [$body world]
+  (-> (arrow-stream $body)
+      (b/on-value
+       (fn [dir]
+         (-> (:user-movements world)
+             (b/push [@(:user-location world) dir]))))))

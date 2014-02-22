@@ -26,8 +26,8 @@
         d (+ b h)]
     [[a b] [c d]]))
 
-(deftemplate gameboard [person dimensions board]
-  (let [[[a b] [c d]] (find-corners person dimensions)]
+(deftemplate gameboard [point dimensions board]
+  (let [[[a b] [c d]] (find-corners point dimensions)]
     [:div#gameboard.noselect
      [:table {:border "1px" :border-collapse true
               :data-constraints [a b c d]}
