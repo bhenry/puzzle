@@ -12,21 +12,30 @@
   [:i.fa.fa-key])
 ;;END OF SQUARES
 
-(defn render [opts]
-  (condp = (:type opts)
-    :man (man)
-    :room-key (room-key)
-    (blank)))
+(defn render [entities]
+  (let [entity (first (sort-by (fn [e] (or (:zi e) 10)) entities))]
+    (condp = (:type entity)
+      :man (man)
+      :room-key (room-key)
+      (blank))))
 
-(deftemplate gameboard [[h w]]
-  [:div#gameboard.noselect
-   [:table {:border "1px" :border-collapse true}
-    (for [i (range h)]
-      [:tr {:class (str i)}
-       (for [j (range w)]
-         [:td {:class (str j)
-               :data-coords (str "[" j "," i "]")}
-          (blank)])])]])
+(defn find-corners [[x y] [h w]]
+  (let [a (- x (rem x h))
+        b (- y (rem y w))
+        c (+ a h)
+        d (+ b w)]
+    [[a b] [c d]]))
+
+(deftemplate gameboard [person dimensions]
+  (let [[[a b] [c d]] (find-corners person dimensions)]
+    [:div#gameboard.noselect
+     [:table {:border "1px" :border-collapse true}
+      (for [i (range a c)]
+        [:tr {:class (str i)}
+         (for [j (range b d)]
+           [:td {:class (str j)
+                 :data-coords (str "[" j "," i "]")}
+            (blank)])])]]))
 
 (deftemplate layout [content]
   [:div#inner-content

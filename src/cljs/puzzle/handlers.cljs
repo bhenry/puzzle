@@ -36,8 +36,8 @@
         [from ent] (remove-entity (get board f) entity)
         to (add-entity (get board t) ent)
         updated (assoc board f from t to)]
-    (b/push (:bus from) (:occupants from))
-    (b/push (:bus to) (:occupants to))
+    (when (:bus from) (b/push (:bus from) (:occupants from)))
+    (when (:bus to) (b/push (:bus to) (:occupants to)))
     updated))
 
 (defn handle [board opts]
