@@ -4,9 +4,11 @@
 (defn place [board {:keys [coords entity]}]
   (let [{:keys [occupants bus] :as cell} (get board coords)
         occupants (conj occupants entity)]
+
     (if bus
       (b/push bus occupants)
       (b/push (:add-grid board) coords))
+
     (assoc board
       coords
       (assoc cell
@@ -33,17 +35,19 @@
   (assoc cell
     :occupants (conj (:occupants cell) entity)))
 
-(defn move [board {:keys [coords direction entity]}]
+(defn move [board {:keys [coords direction entity]}]  
   (let [[f t] [coords (move* coords direction)]
         [from ent] (remove-entity (get board f) entity)
         to (add-entity (get board t) ent)
         updated (assoc board f from t to)]
+
     (when-not (get board t)
       (b/push (:add-grid board) t))
     (when (:bus from)
       (b/push (:bus from) (:occupants from)))
     (when (:bus to)
       (b/push (:bus to) (:occupants to)))
+
     updated))
 
 (defn handle [board opts]

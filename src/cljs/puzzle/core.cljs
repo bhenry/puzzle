@@ -59,7 +59,6 @@
     :change-grid
     (b/on-value
      (fn [coords]
-       (js/console.log "here")
        (render-board coords))))
 
 (defn change! [{:keys [coords] :as opts}]
@@ -94,7 +93,7 @@
 
     (b/plug (:movements user-state) k)
     
-#_    (change! {:coords [6 4]
+    (change! {:coords [16 14]
               :action :placement
               :entity {:type :room-key}})
 
