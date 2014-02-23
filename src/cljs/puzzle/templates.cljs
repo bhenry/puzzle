@@ -26,19 +26,19 @@
         d (+ b h)]
     [[a b] [c d]]))
 
-(deftemplate gameboard [point dimensions board]
-  (let [[[a b] [c d]] (find-corners point dimensions)]
-    [:div#gameboard.noselect
-     [:table {:border "1px" :border-collapse true
-              :data-constraints [a b c d]}
-      (for [i (range b d)]
-        [:tr {:class (str i)}
-         (for [j (range a c)]
-           [:td {:class (str j)
-                 :data-coords (str "[" j "," i "]")}
-            (-> (get board [j i])
-                :occupants
-                render)])])]]))
+(deftemplate gameboard [[[a b] [c d]] board]
+    (js/console.log (pr-str board))
+  [:div#gameboard.noselect
+   [:table {:border "1px" :border-collapse true
+            :data-constraints [a b c d]}
+    (for [i (range b d)]
+      [:tr {:class (str i)}
+       (for [j (range a c)]
+         [:td {:class (str j)
+               :data-coords (str "[" j "," i "]")}
+          (-> (get board [j i])
+              :occupants
+              render)])])]])
 
 (deftemplate layout [content]
   [:div#inner-content

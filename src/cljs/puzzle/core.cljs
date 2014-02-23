@@ -44,18 +44,23 @@
 (defn user-location [world]
   @(:user-location world))
 
+(defn points-of-interest [world]
+  @(:points world))
+
 (defn init-board-display
   ([] (init-board-display world-model))
   ([world]
      (let [loc (user-location world)
            bd board-dimensions
-           g (t/gameboard loc bd @(:points world))
+           points (points-of-interest world)
+           [[a b] [c d]] (t/find-corners loc bd)
+           relevant-points (for [i (range a c)
+                                 j (range b d)]
+                             [i j])
+           g (t/gameboard [[a b] [c d]]
+                          (select-keys points relevant-points))
            l (t/layout g)]
-       (reset! (:visible world)
-               (let [[[a b] [c d]] (t/find-corners loc bd)]
-                 (for [i (range b d)
-                       j (range a c)]
-                   [i j])))
+       (reset! (:visible world) relevant-points)
        (-> ($ "#content") (j/inner l)))))
 
 (defn grab [$board [x y]]
