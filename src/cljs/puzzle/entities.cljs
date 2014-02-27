@@ -1,5 +1,4 @@
-(ns puzzle.entities
-  (:require [puzzle.templates :as t]))
+(ns puzzle.entities)
 
 (def character
   {:type :man
@@ -11,9 +10,3 @@
    :id :room-key
    :zi 100})
 
-(defn render [entities]
-  (let [entity (first (sort-by (fn [e] (or (:zi e) 10)) entities))]
-    (condp = (:type entity)
-      :man (man)
-      :room-key (room-key)
-      (blank))))
