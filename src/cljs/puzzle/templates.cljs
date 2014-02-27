@@ -27,7 +27,7 @@
     [[a b] [c d]]))
 
 (deftemplate gameboard [[[a b] [c d]] board]
-    (js/console.log (pr-str board))
+  (js/console.log (pr-str board))
   [:div#gameboard.noselect
    [:table {:border "1px" :border-collapse true
             :data-constraints [a b c d]}

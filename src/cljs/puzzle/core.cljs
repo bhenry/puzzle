@@ -24,7 +24,7 @@
 
 (def world-model
   {:visible (atom (t/find-corners user-start board-dimensions))
-   :points (atom (init-board user-start r/character))
+   :points (atom (init-board user-start e/character))
    :user-location (atom user-start)
    :user-inventory (atom {:keys []
                           :life []
@@ -67,7 +67,7 @@
      (let [$point (grab $board xy)
            entity (-> (get @(:points world) xy)
                       :occupants
-                      e/render)]
+                      t/render)]
        (j/inner $point entity))))
 
 (defn render-points
