@@ -12,13 +12,6 @@
   [:i.fa.fa-key])
 ;;END OF SQUARES
 
-(defn render [entities]
-  (let [entity (first (sort-by (fn [e] (or (:zi e) 10)) entities))]
-    (condp = (:type entity)
-      :man (man)
-      :room-key (room-key)
-      (blank))))
-
 (defn find-corners [[x y] [h w]]
   (let [a (- x (rem x w))
         b (- y (rem y h))

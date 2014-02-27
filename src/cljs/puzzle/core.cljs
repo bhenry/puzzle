@@ -1,6 +1,7 @@
 (ns puzzle.core
   (:require [dommy.core :as dommy]
             [jayq.core :as j :refer [$]]
+            [puzzle.entities :as e]
             [puzzle.handlers :as h]
             [puzzle.input :as i]
             [puzzle.templates :as t]
@@ -8,16 +9,6 @@
 
 (def board-dimensions [9 9]) ;;[h w]
 (def user-start [1000 1000]) ;;[x y]
-
-(def character
-  {:type :man
-   :id :user
-   :zi 0})
-
-(def room-key
-  {:type :room-key
-   :id :room-key
-   :zi 100})
 
 (defn default-point
   ":door? when true should be any xy to warp to."
@@ -33,8 +24,11 @@
 
 (def world-model
   {:visible (atom (t/find-corners user-start board-dimensions))
-   :points (atom (init-board user-start character))
+   :points (atom (init-board user-start r/character))
    :user-location (atom user-start)
+   :user-inventory (atom {:keys []
+                          :life []
+                          :money 0})
    :user-movements (b/bus)
    :state-changed (b/bus)})
 
@@ -72,8 +66,8 @@
   ([xy $board world]
      (let [$point (grab $board xy)
            entity (-> (get @(:points world) xy)
-                       :occupants
-                       t/render)]
+                      :occupants
+                      e/render)]
        (j/inner $point entity))))
 
 (defn render-points
@@ -112,5 +106,4 @@
   (h/handle world-model
             {:coords [1004 1003]
              :action :place
-             :entity {:type :room-key
-                      :id :room-key}}))
+             :entity e/room-key}))
