@@ -30,14 +30,17 @@
               render)])])]])
 
 (deftemplate inventory [inventory]
-  [:div#inventory
+  [:div#inventory.clearfix
    [:div.pull-left.keys.item
     [:i.fa.fa-key] " " [:span.key-count (:keys inventory)]]
    [:div.pull-left.money.item
     [:i.fa.fa-money] " " [:span.money-count (:money inventory)]]
    [:div.pull-right.health.span6
-    (repeat (:life inventory)
-            [:i.fa.fa-heart])]])
+    (concat
+     (repeat (:life inventory)
+             [:i.fa.fa-heart])
+     (repeat (- 5 (:life inventory))
+             [:i.fa.fa-heart-o]))]])
 
 (deftemplate game-container []
   [:div#game-container])

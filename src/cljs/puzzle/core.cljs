@@ -39,9 +39,7 @@
   (h/put world-model [1006 1007] e/room-key)
   (h/put world-model [1004 1003] (e/money 10))
 
-  
   (let [game (v/init-world-view world-model)]
-
     ;;handle input
     (-> (i/arrow-stream ($ "body"))
         (b/on-value
