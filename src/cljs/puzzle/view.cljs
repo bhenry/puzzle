@@ -6,32 +6,39 @@
 (defn grab [$board [x y]]
   ($ (str "[data-coords='[" x "," y "]']") $board))
 
-(defn visible-points [world]
+(defn visible-world [world]
   (let [[[a b] [c d]] @(:visible world)]
     (select-keys @(:points world)
                  (for [i (range a c)
                        j (range b d)]
                    [i j]))))
 
+(defn find-corners [[x y] [h w]]
+  (let [a (- x (rem x w))
+        b (- y (rem y h))
+        c (+ a w)
+        d (+ b h)]
+    [[a b] [c d]]))
+
 (defn $gameboard [world]
-  ($ (t/gameboard @(:visible world) (visible-points world))))
+  ($ (t/gameboard @(:visible world) (visible-world world))))
 
 (defn $inventory [inventory]
   ($ (t/inventory inventory)))
 
-(defn gam [$container $old-gameboard]
+(defn gam [$container]
   (fn [world]
-    (j/remove $old-gameboard)
+    (j/remove ($ "#gameboard" $container))
     (j/append $container ($gameboard world))))
 
-(defn inv [$container $old-inventory]
+(defn inv [$container]
   (fn [inventory]
-    (j/remove $old-inventory)
+    (j/remove ($ "#inventory" $container))
     (j/prepend $container ($inventory inventory))))
 
-(defn poi [$gameboard]
+(defn poi [$container]
   (fn [[xy point]]
-    (let [$cell (grab $gameboard xy)]
+    (let [$cell (grab $container xy)]
       (j/inner $cell (-> point :occupants t/render)))))
 
 (defn init-world-view [world]
@@ -44,9 +51,9 @@
     (j/prepend $container $inv)
     (j/append $container $gmb)
 
-    (b/on-value inventory-bus (inv $container $inv))
-    (b/on-value gameboard-bus (gam $container $gmb))
-    (b/on-value point-bus (poi $gmb))
+    (b/on-value inventory-bus (inv $container))
+    (b/on-value gameboard-bus (gam $container))
+    (b/on-value point-bus (poi $container))
     
     {:$container $container
      :$gameboard $gameboard

@@ -13,9 +13,10 @@
    :pickup? true
    :zi 200})
 
-(def money
+(defn money [val]
   {:type :money
    :icon :fa-money
    :id :money
+   :value val
    :pickup? true
    :zi 100})

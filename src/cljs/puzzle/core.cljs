@@ -4,7 +4,6 @@
             [puzzle.entities :as e]
             [puzzle.handlers :as h]
             [puzzle.input :as i]
-            [puzzle.templates :as t]
             [puzzle.view :as v]
             [yolk.bacon :as b]))
 
@@ -23,29 +22,47 @@
   {xy (default-point {:occupants [character]})})
 
 (def world-model
-  {:visible (atom (t/find-corners user-start board-dimensions))
+  {:visible (atom (v/find-corners user-start board-dimensions))
    :points (atom (init-board user-start e/character))
    :user-location (atom user-start)
    :user-inventory (atom {:life 3
                           :keys 0
                           :money 0})
    :user-movements (b/bus)
-   :state-changed (b/bus)})
+   :inventory-changes (b/bus)})
+
+(defn point [points xy]
+  (get points xy (default-point)))
 
 (defn main []
-  (let [game (v/init-world-view world-model)]
-    (j/inner ($ "#content") (:$container game))
+  ;;playground
+  (h/put world-model [1006 1007] e/room-key)
+  (h/put world-model [1004 1003] (e/money 10))
 
-    (b/push (:redraw-inventory game) {:keys 0
-                                      :life 4
-                                      :money 3}))
   
-#_  (comment  (h/handle world-model
-                      {:coords [1004 1003]
-                       :action :place
-                       :entity e/room-key})
+  (let [game (v/init-world-view world-model)]
 
-            (h/handle world-model
-                      {:coords [1006 1006]
-                       :action :place
-                       :entity e/money})))
+    ;;handle input
+    (-> (i/arrow-stream ($ "body"))
+        (b/on-value
+         (h/handle-user-input world-model)))
+
+    (-> (:user-movements world-model)
+        (b/on-value
+         (fn [[xyf xyt]]
+           (if (some #{xyt} (map first (v/visible-world world-model)))
+             (let [points @(:points world-model)]
+               (b/push (:redraw-point game) [xyf (point points xyf)])
+               (b/push (:redraw-point game) [xyt (point points xyt)]))
+             (do (reset! (:visible world-model)
+                         (v/find-corners @(:user-location world-model)
+                                         board-dimensions))
+                 (b/push (:redraw-gameboard game) world-model))))))
+
+    (-> (:inventory-changes world-model)
+        (b/on-value
+         (fn [inventory]
+           (b/push (:redraw-inventory game) inventory))))
+    ;;end input handling
+    
+    (j/inner ($ "#content") (:$container game))))
