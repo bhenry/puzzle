@@ -2,21 +2,20 @@
   (:use-macros [dommy.macros :only [deftemplate]]))
 
 ;;KINDS OF SQUARES. these are rendered one at a time
-(deftemplate blank [& opts]
+(deftemplate blank [& [opts]]
   [:div.square])
 
-(deftemplate man [& opts]
-  [:i.fa.fa-male])
-
-(deftemplate room-key [& opts]
-  [:i.fa.fa-key])
+(deftemplate render-entity [entity]
+  [:div.square
+   (cond
+    (:icon entity) [:i.fa {:class (name (:icon entity))}]
+    :default nil)])
 ;;END OF SQUARES
 
 (defn render [entities]
-  (let [entity (first (sort-by (fn [e] (or (:zi e) 10)) entities))]
-    (condp = (:type entity)
-      :man (man)
-      :room-key (room-key)
+  (let [entity (first (sort-by (fn [e] (or (:zi e) 1000)) entities))]
+    (if entity
+      (render-entity entity)
       (blank))))
 
 (defn find-corners [[x y] [h w]]
@@ -40,6 +39,14 @@
               :occupants
               render)])])]])
 
+(deftemplate inventory [inventory]
+  [:div#inventory
+   [:div.pull-left.keys.item
+    [:i.fa.fa-key] " " [:span.key-count 0]]
+   [:div.pull-left.money.item
+    [:i.fa.fa-money] " " [:span.money-count 0]]
+   [:div.pull-right.health.span6
+    (repeat 3 [:i.fa.fa-heart])]])
+
 (deftemplate layout [content]
-  [:div#inner-content
-   content])
+  [:div#inner-content content])

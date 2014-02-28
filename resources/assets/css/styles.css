@@ -45,6 +45,17 @@ a, a:hover, a:visited, a:active {
 	text-align:center;
 }
 
+div#inventory {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    width:250px;
+    font-size:1.2em;
+}
+div#inventory .item {
+    margin-right:6px;
+}
+
 div#gameboard table{
     text-align:center;
     margin-left:auto;
@@ -53,10 +64,15 @@ div#gameboard table{
 div#gameboard table tr td i {
     font-size:1.6em;
 }
+
 div.square {
     width:25px;
     height:25px;
 }
+div.square i.fa {
+    margin:2px 0px;
+}
+
 div#gist {
     width:200px;
     text-align:center;

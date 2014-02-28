@@ -27,7 +27,7 @@
    :points (atom (init-board user-start e/character))
    :user-location (atom user-start)
    :user-inventory (atom {:keys []
-                          :life []
+                          :life 3
                           :money 0})
    :user-movements (b/bus)
    :state-changed (b/bus)})
@@ -40,6 +40,10 @@
 
 (defn points-of-interest [world]
   @(:points world))
+
+(defn init-inventory-display [inventory]
+  (let [$inventory ($ (t/inventory @inventory))]
+    (j/prepend ($ "#inner-content") $inventory)))
 
 (defn init-board-display
   ([] (init-board-display world-model))
@@ -82,6 +86,7 @@
 
 (defn main []
   (init-board-display world-model)
+  (init-inventory-display (:user-inventory world-model))
 
   (-> (:state-changed world-model)
       (b/on-value
@@ -106,4 +111,9 @@
   (h/handle world-model
             {:coords [1004 1003]
              :action :place
-             :entity e/room-key}))
+             :entity e/room-key})
+
+  (h/handle world-model
+            {:coords [1003 1006]
+             :action :place
+             :entity e/money}))

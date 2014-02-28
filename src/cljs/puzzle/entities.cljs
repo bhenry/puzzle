@@ -2,11 +2,20 @@
 
 (def character
   {:type :man
+   :icon :fa-male
    :id :user
    :zi 0})
 
 (def room-key
   {:type :room-key
+   :icon :fa-key
    :id :room-key
-   :zi 100})
+   :pickup? true
+   :zi 200})
 
+(def money
+  {:type :money
+   :icon :fa-money
+   :id :money
+   :pickup? true
+   :zi 100})
