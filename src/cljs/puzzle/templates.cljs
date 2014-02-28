@@ -26,7 +26,6 @@
     [[a b] [c d]]))
 
 (deftemplate gameboard [[[a b] [c d]] board]
-  (js/console.log (pr-str board))
   [:div#gameboard.noselect
    [:table {:border "1px" :border-collapse true
             :data-constraints [a b c d]}
@@ -42,11 +41,12 @@
 (deftemplate inventory [inventory]
   [:div#inventory
    [:div.pull-left.keys.item
-    [:i.fa.fa-key] " " [:span.key-count 0]]
+    [:i.fa.fa-key] " " [:span.key-count (:keys inventory)]]
    [:div.pull-left.money.item
-    [:i.fa.fa-money] " " [:span.money-count 0]]
+    [:i.fa.fa-money] " " [:span.money-count (:money inventory)]]
    [:div.pull-right.health.span6
-    (repeat 3 [:i.fa.fa-heart])]])
+    (repeat (:life inventory)
+            [:i.fa.fa-heart])]])
 
-(deftemplate layout [content]
-  [:div#inner-content content])
+(deftemplate game-container []
+  [:div#game-container])
