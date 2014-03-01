@@ -23,12 +23,17 @@
 
 (defn update-inventory [item]
   (fn [old]
-    (merge-with + old
-                (condp = (:type item)
-                  :room-key {:keys 1}
-                  :money {:money (:value item)}
-                  :life {:life 1}
-                  {}))))
+    (let [i (fn [o k] (assoc o k (-> o k inc)))
+          iv (fn [o k v] (assoc o k (-> o k (+ v))))
+          im (fn [o k m] (assoc o k (min m (-> o k inc))))]
+      (condp = (:type item)
+        :room-key (i old :keys)
+        :money (iv old :money (:value item))
+        :life (im old :life (:health old))
+        :health (-> old
+                    (i :health)
+                    (i :life))
+        old))))
 
 (defn pickup-item [inventory item]
   (swap! inventory (update-inventory item)))

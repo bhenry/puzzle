@@ -4,26 +4,16 @@
             [puzzle.entities :as e]
             [puzzle.handlers :as h]
             [puzzle.input :as i]
+            [puzzle.maps :as m]
             [puzzle.view :as v]
             [yolk.bacon :as b]))
 
 (def board-dimensions [9 9]) ;;[h w]
 (def user-start [1000 1000]) ;;[x y]
 
-(defn default-point
-  ":door? when true should be any xy to warp to."
-  [& [options]]
-  {:occupants (or (:occupants options) [])
-   :blocked? (or (:blocked? options) false)
-   :key-required? (or (:key-required? options) false)
-   :door? (or (:door? options) false)})
-
-(defn init-board [xy character]
-  {xy (default-point {:occupants [character]})})
-
 (def world-model
   {:visible (atom (v/find-corners user-start board-dimensions))
-   :points (atom (init-board user-start e/character))
+   :points (atom (m/init-board user-start e/character))
    :user-location (atom user-start)
    :user-inventory (atom {:health 3 ;;heart containers
                           :life 3 ;;filled hearts
@@ -33,12 +23,14 @@
    :inventory-changes (b/bus)})
 
 (defn point [points xy]
-  (get points xy (default-point)))
+  (get points xy (m/point)))
 
 (defn main []
   ;;playground
   (h/put world-model [1006 1007] e/room-key)
   (h/put world-model [1004 1003] (e/money 10))
+  (h/put world-model [1005 1003] e/heart)
+  (h/put world-model [1002 1003] e/heart-container)
 
   (let [game (v/init-world-view world-model)]
     ;;handle input
