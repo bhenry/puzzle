@@ -41,9 +41,16 @@
    :id :wall
    :zi 501})
 
-(def lock
+(def locked-door
   {:type :door
-   :class "wall"
+   :class "door"
    :icon :fa-lock
+   :id :door
+   :zi 500})
+
+(def open-door
+  {:type :door
+   :class "door"
+   :icon :fa-building-o
    :id :door
    :zi 500})

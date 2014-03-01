@@ -25,10 +25,14 @@
 
 (defn door [xy ab & [{:keys [locked?] :as opts}]]
   {xy (point {:door? ab
-              :occupants (remove nil? [(when locked? e/lock)])
+              :occupants (remove nil? [(if locked?
+                                         e/locked-door
+                                         e/open-door)])
               :locked? locked?
               :blocked? locked?})
    ab (point {:door? xy
-              :occupants (remove nil? [(when locked? e/lock)])
+              :occupants (remove nil? [(if locked?
+                                         e/locked-door
+                                         e/open-door)])
               :locked? locked?
               :blocked? locked?})})

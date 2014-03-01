@@ -97,3 +97,7 @@ div.square i.fa {
 div.wall {
     background-color:#999;
 }
+
+div.door {
+    background-color:#ccc;
+}

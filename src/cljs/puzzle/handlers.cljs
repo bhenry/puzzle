@@ -1,5 +1,6 @@
 (ns puzzle.handlers
-  (:require [puzzle.maps :as m]
+  (:require [puzzle.entities :as e]
+            [puzzle.maps :as m]
             [yolk.bacon :as b]))
 
 (defn move* [[x y] dir]
@@ -54,14 +55,14 @@
     ;;pickup items on the floor
     (doseq [item (filter :pickup? occs)]
       (pickup-item inventory item))
-    ;;render inventory changes
+    ;;register inventory changes
     (b/push (:inventory-changes world) @(:user-inventory world))))
 
 (defn open-door [door]
   (merge door
          {:blocked? false
           :locked? false
-          :occupants []}))
+          :occupants [e/open-door]}))
 
 (defn handle-door [world door]
   (let [ps @(:points world)
@@ -82,8 +83,8 @@
   (fn [direction]
     (let [points @(:points world)
           f @(:user-location world)
-          t* (move* f direction)
           from (get points f (m/point))
+          t* (move* f direction)
           to* (get points t* (m/point))
           [t to] (if (and (:door? to*) (not= f (:door? to*)))
                    [(:door? to*) (get points (:door? to*))]

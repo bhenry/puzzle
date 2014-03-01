@@ -39,7 +39,7 @@
 (defn poi [$container]
   (fn [[xy point]]
     (let [$cell (grab $container xy)]
-      (j/inner $cell (-> point :occupants t/render)))))
+      (j/inner $cell (-> point t/render)))))
 
 (defn init-world-view [world]
   (let [$container ($ (t/game-container))

@@ -10,8 +10,9 @@
     (:icon entity) [:i.fa {:class (name (:icon entity))}]
     :default nil)])
 
-(defn render [entities]
-  (let [entity (first (sort-by (fn [e] (or (:zi e) 1000)) entities))]
+(defn render [point]
+  (let [entities (:occupants point)
+        entity (first (sort-by (fn [e] (or (:zi e) 1000)) entities))]
     (if entity
       (render-entity entity)
       (blank))))
@@ -25,9 +26,7 @@
        (for [j (range a c)]
          [:td {:class (str j)
                :data-coords (str "[" j "," i "]")}
-          (-> (get board [j i])
-              :occupants
-              render)])])]])
+          (-> (get board [j i]) render)])])]])
 
 (deftemplate inventory [inventory]
   [:div#inventory.clearfix
