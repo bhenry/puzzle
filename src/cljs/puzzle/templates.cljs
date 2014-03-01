@@ -5,7 +5,7 @@
   [:div.square])
 
 (deftemplate render-entity [entity]
-  [:div.square
+  [:div.square {:class (:class entity)}
    (cond
     (:icon entity) [:i.fa {:class (name (:icon entity))}]
     :default nil)])

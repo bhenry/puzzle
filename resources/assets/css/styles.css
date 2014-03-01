@@ -69,14 +69,6 @@ div#gameboard table tr td i {
     font-size:1.6em;
 }
 
-div.square {
-    width:25px;
-    height:25px;
-}
-div.square i.fa {
-    margin:2px 0px;
-}
-
 div#gist {
     width:200px;
     text-align:center;
@@ -88,4 +80,20 @@ div#gist {
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
+}
+
+
+/*special entities*/
+
+div.square {
+    width:25px;
+    height:25px;
+}
+
+div.square i.fa {
+    margin:2px 0px;
+}
+
+div.wall {
+    background-color:#999;
 }

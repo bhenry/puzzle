@@ -34,3 +34,9 @@
    :id :health
    :pickup? true
    :zi 300})
+
+(def wall
+  {:type :wall
+   :class "wall"
+   :id :wall
+   :zi 500})

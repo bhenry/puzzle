@@ -27,11 +27,19 @@
 
 (defn main []
   ;;playground
-  (h/put world-model [1006 1007] e/room-key)
-  (h/put world-model [1004 1003] (e/money 10))
+  (h/put world-model [1006 1006] e/room-key)
+  (h/put world-model [1004 1001] (e/money 10))
   (h/put world-model [1005 1003] e/heart)
   (h/put world-model [1002 1003] e/heart-container)
 
+  (swap! (:points world-model)
+         (fn [wm]
+           (merge wm
+                  (m/wall [999 999] :vertical 9)
+                  (m/wall [999 999] :horizontal 9)
+                  (m/wall [1007 999] :vertical 9)
+                  (m/wall [999 1007] :horizontal 9))))
+  
   (let [game (v/init-world-view world-model)]
     ;;handle input
     (-> (i/arrow-stream ($ "body"))
