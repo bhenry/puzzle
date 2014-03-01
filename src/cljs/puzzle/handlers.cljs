@@ -18,10 +18,14 @@
   (assoc point
     :occupants (remove :pickup? (conj (:occupants point) entity))))
 
-(defn valid-move? [to inv]
-  (or
-   (not (:blocked? to))
-   (and (:blocked? to) (<= 1 (:keys inv)))))
+(defn check-access [to inv]
+  (cond
+   (:locked? to) (<= 1 (:keys inv))))
+
+(defn validate-move? [to inv]
+  (if (:blocked? to)
+    (check-access to inv)
+    true))
 
 (defn update-inventory [item]
   (fn [old]
@@ -41,10 +45,33 @@
   (swap! inventory (update-inventory item)))
 
 (defn handle-items [world point]
-  (let [occs (:occupants point)]
+  (let [occs (:occupants point)
+        inventory (:user-inventory world)]
+    ;;pickup items on the floor
     (doseq [item (filter :pickup? occs)]
-      (pickup-item (:user-inventory world) item))
+      (pickup-item inventory item))
+    ;;render inventory changes
     (b/push (:inventory-changes world) @(:user-inventory world))))
+
+(defn open-door [door]
+  (merge door
+         {:blocked? false
+          :locked? false
+          :occupants []}))
+
+(defn handle-door [world door]
+  (let [ps @(:points world)
+        out door
+        in (get ps (:door? door))]
+    (if (:locked? out)
+      (swap! (:user-inventory world) (fn [i] (merge-with - i {:keys 1}))))
+
+    (when (every? :door? [in out])
+      ;;by now we know that the move is valid
+      (swap! (:points world)
+             #(assoc %
+                (:door? out) (open-door in)
+                (:door? in) (open-door out))))))
 
 (defn handle-user-input [world]
   (fn [direction]
@@ -52,17 +79,20 @@
           t (move* f direction)
           points @(:points world)
           from (get points f)
-          to (get points t)
+          to* (get points t)
+          to (if (:door? to*) (get points (:door? to*)) to*)
           inventory @(:user-inventory world)
           entity (->> (:occupants from)
                       (filter #(= :user (:id %)))
                       first)]
-      (when (valid-move? to inventory)
+      (when (validate-move? to inventory)
         (handle-items world to)
+        (when (:door? to)
+          (handle-door world to))
         (reset! (:user-location world) t)
         (swap! (:points world)
-               #(merge % {f (remove-entity from :user)
-                          t (add-entity to entity)}))
+               #(merge % {f (remove-entity (get @(:points world) f) :user)
+                          t (add-entity (get @(:points world) t) entity)}))
         (b/push (:user-movements world) [f t])))))
 
 (defn put [world xy entity]
