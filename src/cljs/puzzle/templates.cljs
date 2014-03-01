@@ -39,7 +39,7 @@
     (concat
      (repeat (:life inventory)
              [:i.fa.fa-heart])
-     (repeat (- 5 (:life inventory))
+     (repeat (- (:health inventory) (:life inventory))
              [:i.fa.fa-heart-o]))]])
 
 (deftemplate game-container []

@@ -25,7 +25,8 @@
   {:visible (atom (v/find-corners user-start board-dimensions))
    :points (atom (init-board user-start e/character))
    :user-location (atom user-start)
-   :user-inventory (atom {:life 3
+   :user-inventory (atom {:health 3 ;;heart containers
+                          :life 3 ;;filled hearts
                           :keys 0
                           :money 0})
    :user-movements (b/bus)
