@@ -20,14 +20,15 @@
                           :keys 0
                           :money 0})
    :user-movements (b/bus)
+   :state-changes (b/bus)
    :inventory-changes (b/bus)})
 
 (defn point [points xy]
-  (get points xy (m/point xy)))
+  (get points xy (m/point)))
 
 (defn main []
   ;;playground
-  (h/put world-model [1006 1006] e/room-key)
+  (h/put world-model [1001 1005] e/room-key)
   (h/put world-model [1004 1001] (e/money 10))
   (h/put world-model [1005 1003] e/heart)
   (h/put world-model [1002 1003] e/heart-container)
@@ -49,11 +50,11 @@
 
     (-> (:user-movements world-model)
         (b/on-value
-         (fn [[xyf xyt]]
-           (if (some #{xyt} (map first (v/visible-world world-model)))
+         (fn [[u & changes]]
+           (if (some #{u} (map first (v/visible-world world-model)))
              (let [points @(:points world-model)]
-               (b/push (:redraw-point game) [xyf (point points xyf)])
-               (b/push (:redraw-point game) [xyt (point points xyt)]))
+               (doseq [p (conj changes u)]
+                 (b/push (:redraw-point game) [p (point points p)])))
              (do (reset! (:visible world-model)
                          (v/find-corners @(:user-location world-model)
                                          board-dimensions))

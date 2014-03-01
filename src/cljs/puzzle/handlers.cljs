@@ -100,9 +100,10 @@
           (handle-door world to))
         
         (swap! (:points world)
-               #(merge % {f (remove-entity (get @(:points world) f) :user)
-                          t (add-entity (get @(:points world) t) user)}))
-        (b/push (:user-movements world) [f t])))))
+               #(merge %
+                       {f (remove-entity (get @(:points world) f) :user)
+                        t (add-entity (get @(:points world) t) user)}))
+        (b/push (:user-movements world) [t f t*])))))
 
 (defn put [world xy entity]
   (swap! (:points world)
