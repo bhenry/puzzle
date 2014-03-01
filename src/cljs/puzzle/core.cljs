@@ -38,7 +38,8 @@
                   (m/wall [999 999] :vertical 9)
                   (m/wall [999 999] :horizontal 9)
                   (m/wall [1007 999] :vertical 9)
-                  (m/wall [999 1007] :horizontal 9))))
+                  (m/wall [999 1007] :horizontal 9)
+                  (m/door [1003 1007] [1003 1008] {:locked? true}))))
   
   (let [game (v/init-world-view world-model)]
     ;;handle input

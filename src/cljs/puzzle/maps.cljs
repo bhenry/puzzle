@@ -6,7 +6,7 @@
   [& [options]]
   {:occupants (or (:occupants options) [])
    :blocked? (or (:blocked? options) false)
-   :key-required? (or (:key-required? options) false)
+   :locked? (or (:locked? options) false)
    :door? (or (:door? options) false)})
 
 (defn init-board [xy character]
@@ -22,3 +22,13 @@
         (for [wp (wall-points xy orientation distance)]
           [wp (point {:blocked? true
                       :occupants [e/wall]})])))
+
+(defn door [xy ab & [{:keys [locked?] :as opts}]]
+  {xy (point {:door? ab
+              :occupants (remove nil? [(when locked? e/lock)])
+              :locked? locked?
+              :blocked? locked?})
+   ab (point {:door? xy
+              :occupants (remove nil? [(when locked? e/lock)])
+              :locked? locked?
+              :blocked? locked?})})

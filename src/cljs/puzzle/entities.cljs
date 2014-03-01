@@ -39,4 +39,11 @@
   {:type :wall
    :class "wall"
    :id :wall
+   :zi 501})
+
+(def lock
+  {:type :door
+   :class "wall"
+   :icon :fa-lock
+   :id :door
    :zi 500})

@@ -18,8 +18,10 @@
   (assoc point
     :occupants (remove :pickup? (conj (:occupants point) entity))))
 
-(defn valid-move? [to]
-  (not (:blocked? to)))
+(defn valid-move? [to inv]
+  (or
+   (not (:blocked? to))
+   (and (:blocked? to) (<= 1 (:keys inv)))))
 
 (defn update-inventory [item]
   (fn [old]
@@ -51,10 +53,11 @@
           points @(:points world)
           from (get points f)
           to (get points t)
+          inventory @(:user-inventory world)
           entity (->> (:occupants from)
                       (filter #(= :user (:id %)))
                       first)]
-      (when (valid-move? to)
+      (when (valid-move? to inventory)
         (handle-items world to)
         (reset! (:user-location world) t)
         (swap! (:points world)
