@@ -1,5 +1,6 @@
 (ns puzzle.handlers
-  (:require [yolk.bacon :as b]))
+  (:require [puzzle.maps :as m]
+            [yolk.bacon :as b]))
 
 (defn move* [[x y] dir]
   (let [dist 1]
@@ -12,11 +13,14 @@
 (defn remove-entity [point id]
   (let [occs (:occupants point)
         entity (first (filter #(= id (:id %)) occs))]
-    (assoc point :occupants (remove #{entity} occs))))
+    (assoc point
+      :occupants (remove nil? (remove #{entity} occs)))))
 
 (defn add-entity [point entity]
   (assoc point
-    :occupants (remove :pickup? (conj (:occupants point) entity))))
+    :occupants (->> (conj (:occupants point) entity)
+                    (remove :pickup?)
+                    (remove nil?))))
 
 (defn check-access [to inv]
   (cond
@@ -63,8 +67,9 @@
   (let [ps @(:points world)
         out door
         in (get ps (:door? door))]
-    (if (:locked? out)
-      (swap! (:user-inventory world) (fn [i] (merge-with - i {:keys 1}))))
+    (when (:locked? in)
+      (swap! (:user-inventory world) (fn [i] (merge-with - i {:keys 1})))
+      (b/push (:inventory-changes world) @(:user-inventory world)))
 
     (when (every? :door? [in out])
       ;;by now we know that the move is valid
@@ -75,24 +80,27 @@
 
 (defn handle-user-input [world]
   (fn [direction]
-    (let [f @(:user-location world)
-          t (move* f direction)
-          points @(:points world)
-          from (get points f)
-          to* (get points t)
-          to (if (:door? to*) (get points (:door? to*)) to*)
+    (let [points @(:points world)
+          f @(:user-location world)
+          t* (move* f direction)
+          from (get points f (m/point))
+          to* (get points t* (m/point))
+          [t to] (if (and (:door? to*) (not= f (:door? to*)))
+                   [(:door? to*) (get points (:door? to*))]
+                   [t* to*])
           inventory @(:user-inventory world)
-          entity (->> (:occupants from)
-                      (filter #(= :user (:id %)))
-                      first)]
+          user (->> (:occupants from)
+                    (filter #(= :user (:id %)))
+                    first)]
       (when (validate-move? to inventory)
+        (reset! (:user-location world) t)
         (handle-items world to)
         (when (:door? to)
           (handle-door world to))
-        (reset! (:user-location world) t)
+        
         (swap! (:points world)
                #(merge % {f (remove-entity (get @(:points world) f) :user)
-                          t (add-entity (get @(:points world) t) entity)}))
+                          t (add-entity (get @(:points world) t) user)}))
         (b/push (:user-movements world) [f t])))))
 
 (defn put [world xy entity]
@@ -100,5 +108,5 @@
          (fn [p]
            (assoc p
              xy (merge-with concat
-                            (get p xy)
+                            (get p xy (m/point xy))
                             {:occupants [entity]})))))

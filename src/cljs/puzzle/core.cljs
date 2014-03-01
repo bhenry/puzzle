@@ -23,7 +23,7 @@
    :inventory-changes (b/bus)})
 
 (defn point [points xy]
-  (get points xy (m/point)))
+  (get points xy (m/point xy)))
 
 (defn main []
   ;;playground
