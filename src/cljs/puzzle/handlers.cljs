@@ -110,5 +110,5 @@
          (fn [p]
            (assoc p
              xy (merge-with concat
-                            (get p xy (m/point xy))
+                            (get p xy (m/point))
                             {:occupants [entity]})))))
