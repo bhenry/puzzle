@@ -9,7 +9,11 @@
       :north [x (- y dist)]
       :south [x (+ y dist)]
       :west  [(- x dist) y]
-      :east  [(+ x dist) y])))
+      :east  [(+ x dist) y]
+      :northeast [(+ x dist) (- y dist)]
+      :southeast [(+ x dist) (+ y dist)]
+      :southwest [(- x dist) (+ y dist)]
+      :northwest [(- x dist) (- y dist)])))
 
 (defn remove-entity [point id]
   (let [occs (:occupants point)
