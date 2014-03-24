@@ -18,7 +18,7 @@
       (blank))))
 
 (deftemplate gameboard [[[a b] [c d]] board]
-  [:div#gameboard.noselect
+  [:div#gameboard
    [:table {:border "1px" :border-collapse true
             :data-constraints [a b c d]}
     (for [i (range b d)]
@@ -42,4 +42,4 @@
              [:i.fa.fa-heart-o]))]])
 
 (deftemplate game-container []
-  [:div#game-container])
+  [:div#game-container.noselect])

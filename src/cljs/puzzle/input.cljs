@@ -23,11 +23,11 @@
 
 (defn- direction [[x1 y1] [x2 y2]]
   (let [x (cond (< x1 x2) :east
-                    (> x1 x2) :west
-                    :equal nil)
+                (> x1 x2) :west
+                :equal nil)
         y (cond (< y1 y2) :south
-                    (> y1 y2) :north
-                    :equal nil)]
+                (> y1 y2) :north
+                :equal nil)]
     (cond
      (and (= x :east) (= y :north)) :northeast
      (and (= x :east) (= y :south)) :southeast
