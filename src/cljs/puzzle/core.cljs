@@ -44,7 +44,8 @@
   
   (let [game (v/init-world-view world-model)]
     ;;handle input
-    (-> (i/click-stream (:user-location world-model) ($ "body"))
+    (-> (i/click-stream (:user-location world-model)
+                        (:$container game))
         (b/on-value
          (h/handle-user-input world-model)))
     
