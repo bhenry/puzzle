@@ -25191,18 +25191,18 @@ goog.require("yolk.bacon");
 goog.require("jayq.core");
 puzzle.input.read_key_input = function read_key_input(e) {
   var k = e.which;
-  var pred__3430 = cljs.core._EQ_;
-  var expr__3431 = k;
-  if(pred__3430.call(null, 38, expr__3431)) {
+  var pred__5071 = cljs.core._EQ_;
+  var expr__5072 = k;
+  if(pred__5071.call(null, 38, expr__5072)) {
     return"\ufdd0'north"
   }else {
-    if(pred__3430.call(null, 40, expr__3431)) {
+    if(pred__5071.call(null, 40, expr__5072)) {
       return"\ufdd0'south"
     }else {
-      if(pred__3430.call(null, 37, expr__3431)) {
+      if(pred__5071.call(null, 37, expr__5072)) {
         return"\ufdd0'west"
       }else {
-        if(pred__3430.call(null, 39, expr__3431)) {
+        if(pred__5071.call(null, 39, expr__5072)) {
           return"\ufdd0'east"
         }else {
           return"\ufdd0'sit"
@@ -25221,111 +25221,42 @@ puzzle.input.arrow_stream = function arrow_stream($elem) {
 puzzle.input.target = function target(e) {
   return jayq.core.closest.call(null, jayq.core.$.call(null, e["target"]), "td")
 };
-puzzle.input.direction = function direction(p__3433, p__3434) {
-  var vec__3437 = p__3433;
-  var x1 = cljs.core.nth.call(null, vec__3437, 0, null);
-  var y1 = cljs.core.nth.call(null, vec__3437, 1, null);
-  var vec__3438 = p__3434;
-  var x2 = cljs.core.nth.call(null, vec__3438, 0, null);
-  var y2 = cljs.core.nth.call(null, vec__3438, 1, null);
+puzzle.input.direction = function direction(p__5074, p__5075) {
+  var vec__5081 = p__5074;
+  var x1 = cljs.core.nth.call(null, vec__5081, 0, null);
+  var y1 = cljs.core.nth.call(null, vec__5081, 1, null);
+  var vec__5082 = p__5075;
+  var x2 = cljs.core.nth.call(null, vec__5082, 0, null);
+  var y2 = cljs.core.nth.call(null, vec__5082, 1, null);
   var x = x1 < x2 ? "\ufdd0'east" : x1 > x2 ? "\ufdd0'west" : "\ufdd0'equal" ? null : null;
   var y = y1 < y2 ? "\ufdd0'south" : y1 > y2 ? "\ufdd0'north" : "\ufdd0'equal" ? null : null;
-  if(function() {
-    var and__3941__auto__ = cljs.core._EQ_.call(null, x, "\ufdd0'east");
-    if(and__3941__auto__) {
-      return cljs.core._EQ_.call(null, y, "\ufdd0'north")
-    }else {
-      return and__3941__auto__
-    }
-  }()) {
+  var pred__5083 = cljs.core._EQ_;
+  var expr__5084 = cljs.core.PersistentVector.fromArray([x, y], true);
+  if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'east", "\ufdd0'north"], true), expr__5084)) {
     return"\ufdd0'northeast"
   }else {
-    if(function() {
-      var and__3941__auto__ = cljs.core._EQ_.call(null, x, "\ufdd0'east");
-      if(and__3941__auto__) {
-        return cljs.core._EQ_.call(null, y, "\ufdd0'south")
-      }else {
-        return and__3941__auto__
-      }
-    }()) {
+    if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'east", "\ufdd0'south"], true), expr__5084)) {
       return"\ufdd0'southeast"
     }else {
-      if(function() {
-        var and__3941__auto__ = cljs.core._EQ_.call(null, x, "\ufdd0'west");
-        if(and__3941__auto__) {
-          return cljs.core._EQ_.call(null, y, "\ufdd0'north")
-        }else {
-          return and__3941__auto__
-        }
-      }()) {
+      if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'west", "\ufdd0'north"], true), expr__5084)) {
         return"\ufdd0'northwest"
       }else {
-        if(function() {
-          var and__3941__auto__ = cljs.core._EQ_.call(null, x, "\ufdd0'west");
-          if(and__3941__auto__) {
-            return cljs.core._EQ_.call(null, y, "\ufdd0'south")
-          }else {
-            return and__3941__auto__
-          }
-        }()) {
+        if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'west", "\ufdd0'south"], true), expr__5084)) {
           return"\ufdd0'southwest"
         }else {
-          if(function() {
-            var and__3941__auto__ = cljs.core.not.call(null, x);
-            if(and__3941__auto__) {
-              return cljs.core._EQ_.call(null, y, "\ufdd0'north")
-            }else {
-              return and__3941__auto__
-            }
-          }()) {
+          if(pred__5083.call(null, cljs.core.PersistentVector.fromArray([null, "\ufdd0'north"], true), expr__5084)) {
             return"\ufdd0'north"
           }else {
-            if(function() {
-              var and__3941__auto__ = cljs.core.not.call(null, x);
-              if(and__3941__auto__) {
-                return cljs.core._EQ_.call(null, y, "\ufdd0'south")
-              }else {
-                return and__3941__auto__
-              }
-            }()) {
+            if(pred__5083.call(null, cljs.core.PersistentVector.fromArray([null, "\ufdd0'south"], true), expr__5084)) {
               return"\ufdd0'south"
             }else {
-              if(function() {
-                var and__3941__auto__ = cljs.core.not.call(null, y);
-                if(and__3941__auto__) {
-                  return cljs.core._EQ_.call(null, x, "\ufdd0'east")
-                }else {
-                  return and__3941__auto__
-                }
-              }()) {
+              if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'east", null], true), expr__5084)) {
                 return"\ufdd0'east"
               }else {
-                if(function() {
-                  var and__3941__auto__ = cljs.core.not.call(null, y);
-                  if(and__3941__auto__) {
-                    return cljs.core._EQ_.call(null, x, "\ufdd0'west")
-                  }else {
-                    return and__3941__auto__
-                  }
-                }()) {
+                if(pred__5083.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'west", null], true), expr__5084)) {
                   return"\ufdd0'west"
                 }else {
-                  if(function() {
-                    var and__3941__auto__ = cljs.core.not.call(null, x);
-                    if(and__3941__auto__) {
-                      return cljs.core.not.call(null, y)
-                    }else {
-                      return and__3941__auto__
-                    }
-                  }()) {
-                    return"\ufdd0'sit"
-                  }else {
-                    if("\ufdd0'else") {
-                      return"\ufdd0'sit"
-                    }else {
-                      return null
-                    }
-                  }
+                  return"\ufdd0'sit"
                 }
               }
             }
@@ -25347,8 +25278,8 @@ puzzle.input.read_mouse_input = function read_mouse_input(loc) {
   }
 };
 puzzle.input.click_stream = function click_stream(loc, $elem) {
-  return yolk.bacon.filter.call(null, yolk.bacon.map.call(null, yolk.bacon.map.call(null, $elem.clickE(), puzzle.input.target), puzzle.input.read_mouse_input.call(null, loc)), function(p1__3439_SHARP_) {
-    return cljs.core.not_EQ_.call(null, "\ufdd0'sit", p1__3439_SHARP_)
+  return yolk.bacon.filter.call(null, yolk.bacon.map.call(null, yolk.bacon.map.call(null, $elem.clickE(), puzzle.input.target), puzzle.input.read_mouse_input.call(null, loc)), function(p1__5086_SHARP_) {
+    return cljs.core.not_EQ_.call(null, "\ufdd0'sit", p1__5086_SHARP_)
   })
 };
 goog.provide("puzzle.handlers");
@@ -26529,19 +26460,19 @@ puzzle.core.main = function main() {
   var game = puzzle.view.init_world_view.call(null, puzzle.core.world_model);
   yolk.bacon.on_value.call(null, puzzle.input.click_stream.call(null, (new cljs.core.Keyword("\ufdd0'user-location")).call(null, puzzle.core.world_model), (new cljs.core.Keyword("\ufdd0'$container")).call(null, game)), puzzle.handlers.handle_user_input.call(null, puzzle.core.world_model));
   yolk.bacon.on_value.call(null, puzzle.input.arrow_stream.call(null, jayq.core.$.call(null, "body")), puzzle.handlers.handle_user_input.call(null, puzzle.core.world_model));
-  yolk.bacon.on_value.call(null, (new cljs.core.Keyword("\ufdd0'user-movements")).call(null, puzzle.core.world_model), function(p__6091) {
-    var vec__6092 = p__6091;
-    var u = cljs.core.nth.call(null, vec__6092, 0, null);
-    var changes = cljs.core.nthnext.call(null, vec__6092, 1);
+  yolk.bacon.on_value.call(null, (new cljs.core.Keyword("\ufdd0'user-movements")).call(null, puzzle.core.world_model), function(p__3397) {
+    var vec__3398 = p__3397;
+    var u = cljs.core.nth.call(null, vec__3398, 0, null);
+    var changes = cljs.core.nthnext.call(null, vec__3398, 1);
     if(cljs.core.truth_(cljs.core.some.call(null, cljs.core.PersistentHashSet.fromArray([u]), cljs.core.map.call(null, cljs.core.first, puzzle.view.visible_world.call(null, puzzle.core.world_model))))) {
       var points = cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'points")).call(null, puzzle.core.world_model));
-      var G__6093 = cljs.core.seq.call(null, cljs.core.conj.call(null, changes, u));
+      var G__3399 = cljs.core.seq.call(null, cljs.core.conj.call(null, changes, u));
       while(true) {
-        if(G__6093) {
-          var p = cljs.core.first.call(null, G__6093);
+        if(G__3399) {
+          var p = cljs.core.first.call(null, G__3399);
           yolk.bacon.push.call(null, (new cljs.core.Keyword("\ufdd0'redraw-point")).call(null, game), cljs.core.PersistentVector.fromArray([p, puzzle.core.point.call(null, points, p)], true));
-          var G__6094 = cljs.core.next.call(null, G__6093);
-          G__6093 = G__6094;
+          var G__3400 = cljs.core.next.call(null, G__3399);
+          G__3399 = G__3400;
           continue
         }else {
           return null

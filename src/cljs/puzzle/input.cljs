@@ -28,17 +28,16 @@
         y (cond (< y1 y2) :south
                 (> y1 y2) :north
                 :equal nil)]
-    (cond
-     (and (= x :east) (= y :north)) :northeast
-     (and (= x :east) (= y :south)) :southeast
-     (and (= x :west) (= y :north)) :northwest
-     (and (= x :west) (= y :south)) :southwest
-     (and (not x) (= y :north)) :north
-     (and (not x) (= y :south)) :south
-     (and (not y) (= x :east)) :east
-     (and (not y) (= x :west)) :west
-     (and (not x) (not y)) :sit
-     :else :sit)))
+    (condp = [x y]
+      [:east :north] :northeast
+      [:east :south] :southeast
+      [:west :north] :northwest
+      [:west :south] :southwest
+      [nil :north] :north
+      [nil :south] :south
+      [:east nil] :east
+      [:west nil] :west
+      :sit)))
 
 (defn- read-mouse-input [loc]
   (fn [$td]
