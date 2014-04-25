@@ -28,15 +28,8 @@
         y (cond (< y1 y2) :south
                 (> y1 y2) :north
                 :equal nil)]
-    (condp = [x y]
-      [:east :north] :northeast
-      [:east :south] :southeast
-      [:west :north] :northwest
-      [:west :south] :southwest
-      [nil :north] :north
-      [nil :south] :south
-      [:east nil] :east
-      [:west nil] :west
+    (if (or x y)
+      (keyword (str (name (or y "")) (name (or x ""))))
       :sit)))
 
 (defn- read-mouse-input [loc]
