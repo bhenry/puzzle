@@ -12,7 +12,7 @@ a, a:hover, a:visited, a:active {
 #header, #header-xs {
 	margin-bottom:16px;
 	margin-top:16px;
-	background-image:url("resources/head.png");
+	background-image:url("/resources/head.png");
 	background-repeat:no-repeat;
 	background-position:top right;
 	height:150px;
