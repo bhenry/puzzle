@@ -4,7 +4,7 @@ A little game to get better at bacon and yolk stuff.
 
 ## Usage
 
-FIXME
+http://bhenry.github.io/puzzle/
 
 ## License
 
